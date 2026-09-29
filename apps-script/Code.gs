@@ -39,7 +39,7 @@ var HEADERS = ['Received', 'Name', 'Title', 'Company', 'Industry', 'Email', 'Pho
 
 /** Health check: open the /exec URL in a browser. */
 function doGet() {
-  return json_({ ok: true, service: 'elitemgmt-intake', time: new Date().toISOString() });
+  return json_({ ok: true, service: 'elitemgmt-intake', version: 'v3-branded', time: new Date().toISOString() });
 }
 
 /** Form submissions. Body is JSON sent as text/plain (keeps the request "simple", no CORS preflight). */
