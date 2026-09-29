@@ -607,7 +607,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
   function makeScene(canvas, opts){
     const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'default'});
     if(!renderer.getContext()) throw new Error('no context');
-    glGuard(canvas); renderer.setPixelRatio(DPR);
+    glGuard(canvas); renderer.setPixelRatio(DPR); renderer.setClearColor(0x000000,0);
     const scene=new THREE.Scene(); const camera=new THREE.PerspectiveCamera(opts.fov||40,1,.1,100);
     let visible=false; new IntersectionObserver(en=>visible=en[0].isIntersecting,{rootMargin:'80px'}).observe(canvas);
     function fit(){ const w=canvas.clientWidth||1,h=canvas.clientHeight||1; if(canvas.width!==Math.round(w*DPR)||canvas.height!==Math.round(h*DPR)){ renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); } }
@@ -617,7 +617,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
   // One fixed canvas renders every boxed scene with scissoring; boxes stay interactive underneath.
   const stage=(function(){
     const canvas=document.getElementById('stage'); let renderer=null; const items=[]; let t=0;
-    function init(){ if(renderer) return true; try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'default'}); if(!renderer.getContext()) throw 0; glGuard(canvas); renderer.setPixelRatio(DPR); renderer.autoClear=false; renderer.setScissorTest(true); return true; }catch(e){ document.body.classList.add('gl-lost'); return false; } }
+    function init(){ if(renderer) return true; try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'default'}); if(!renderer.getContext()) throw 0; glGuard(canvas); renderer.setPixelRatio(DPR); renderer.setClearColor(0x000000,0); renderer.autoClear=false; renderer.setScissorTest(true); return true; }catch(e){ document.body.classList.add('gl-lost'); return false; } }
     function loop(){
       requestAnimationFrame(loop);
       if(document.body.classList.contains('gl-lost')||!renderer) return;
