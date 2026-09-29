@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Elite Management LLC — operating, financial and growth advisory for owner-led businesses. Clearer numbers, cleaner vendor relationships, a leadership cadence that holds.">
+<meta property="og:title" content="Elite Management">
+<meta property="og:description" content="Run the business you intend to run.">
+<meta property="og:url" content="https://elitemgmt.io/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#07090d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none'%3E%3Crect width='40' height='40' fill='%2307090d'/%3E%3Cpath d='M20 3 36 12v16L20 37 4 28V12z' stroke='%23d2b06c' stroke-width='1.6'/%3E%3Ccircle cx='20' cy='20' r='3.4' fill='%23f0d59a'/%3E%3C/svg%3E">
+<title>Elite Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: full-bleed obsidian stage; a 3D lattice hero, tilt-card services, a draggable "ascent" model, and an intake desk. Single committed dark look. */
+:root{
+  --bg:#07090d;
+  --bg-2:#0d1118;
+  --bg-3:#141a23;
+  --line:rgba(214,190,140,.16);
+  --fg:#ecebe6;
+  --fg-2:#a8adb5;
+  --fg-3:#6e747d;
+  --brass:#d2b06c;
+  --brass-2:#f0d59a;
+  --brass-dim:rgba(210,176,108,.12);
+  --slate:#6f8fa8;
+  --ok:#7fc39a;
+  --bad:#e08a7a;
+  --display:"Bodoni Moda", "Didot", "Times New Roman", serif;
+  --body:"Figtree", "Helvetica Neue", Arial, sans-serif;
+  --mono:"JetBrains Mono", "SF Mono", Menlo, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:clamp(16px,4vw,48px)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--brass);opacity:.7}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border:1px solid var(--brass);color:var(--bg);background:var(--brass);font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.04em;text-decoration:none;cursor:pointer;border-radius:2px;transition:transform .25s,background .25s,color .25s,box-shadow .25s}
+.btn:hover{background:var(--brass-2);transform:translateY(-1px);box-shadow:0 12px 40px -12px rgba(210,176,108,.55)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--brass);color:var(--brass-2);box-shadow:none}
+:focus-visible{outline:2px solid var(--brass-2);outline-offset:3px}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:linear-gradient(rgba(7,9,13,.85),rgba(7,9,13,.4));border-bottom:1px solid rgba(255,255,255,.04)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand .mark{width:30px;height:30px;position:relative}
+.brand .mark svg{width:100%;height:100%}
+.brand b{font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:.02em}
+.brand small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.24em;color:var(--fg-3);text-transform:uppercase;line-height:1}
+.navlinks{display:flex;gap:28px;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.navlinks a{text-decoration:none;color:var(--fg-2);transition:color .2s}
+.navlinks a:hover{color:var(--brass-2)}
+@media(max-width:760px){.navlinks{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:min(92vh,860px);display:grid;align-items:end;overflow:hidden;isolation:isolate}
+#lattice{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 60% at 70% 40%,transparent 0%,rgba(7,9,13,.35)60%,var(--bg) 100%)}
+.hero .wrap{padding-block:140px 72px;display:grid;gap:28px;max-width:1180px}
+.hero h1{font-size:clamp(56px,10vw,150px);font-weight:400;letter-spacing:-.025em;line-height:.92}
+.hero h1 em{font-style:italic;color:var(--brass-2)}
+.hero .lede{max-width:34em;color:var(--fg-2);font-size:clamp(16px,1.6vw,19px);font-weight:300}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hero .meta{display:flex;gap:32px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);padding-top:24px;border-top:1px solid var(--line)}
+.hero .meta span b{color:var(--brass);font-weight:500}
+.hint{position:absolute;right:clamp(16px,4vw,48px);top:120px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;align-items:center;gap:10px}
+.hint i{width:8px;height:8px;border:1px solid var(--brass);border-radius:50%;animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(210,176,108,.5)}60%{box-shadow:0 0 0 10px rgba(210,176,108,0)}}
+@media(max-width:760px){.hint{display:none}}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);overflow:hidden;background:var(--bg-2)}
+.marquee .track{display:flex;gap:0;width:max-content;animation:scroll 42s linear infinite}
+.marquee span{padding:16px 36px;font-family:var(--display);font-size:22px;color:var(--fg-2);white-space:nowrap;display:flex;align-items:center;gap:36px}
+.marquee span::after{content:"◆";font-size:9px;color:var(--brass)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* sections */
+section.block{padding-block:clamp(72px,10vw,128px)}
+.head{display:grid;gap:18px;max-width:60ch;margin-bottom:clamp(40px,6vw,64px)}
+.head h2{font-size:clamp(34px,5vw,64px)}
+.head p{color:var(--fg-2);font-size:17px;font-weight:300}
+
+/* services — tilt cards */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;perspective:1400px}
+.card{position:relative;padding:32px 28px 28px;background:linear-gradient(160deg,var(--bg-3),var(--bg-2));border:1px solid var(--line);border-radius:4px;min-height:320px;display:flex;flex-direction:column;gap:16px;transform-style:preserve-3d;transition:transform .12s ease-out,border-color .3s;will-change:transform;min-width:0}
+.card::before{content:"";position:absolute;inset:0;border-radius:4px;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(240,213,154,.14),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover{border-color:rgba(210,176,108,.45)}
+.card:hover::before{opacity:1}
+.card .num{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--brass);transform:translateZ(30px)}
+.card h3{font-size:30px;transform:translateZ(40px)}
+.card p{color:var(--fg-2);font-size:15px;font-weight:300;transform:translateZ(20px);flex:1}
+.card ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:13px;color:var(--fg-2);transform:translateZ(24px)}
+.card li{display:flex;gap:10px;align-items:baseline}
+.card li::before{content:"";width:14px;height:1px;background:var(--brass);flex:none;transform:translateY(-3px)}
+.card .glyph{position:absolute;right:22px;top:22px;width:44px;height:44px;opacity:.9;transform:translateZ(50px)}
+.card .glyph svg{width:100%;height:100%}
+
+/* ascent */
+.ascent{background:var(--bg-2);border-block:1px solid var(--line)}
+.ascent .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+@media(max-width:900px){.ascent .grid{grid-template-columns:1fr}}
+#ascent{width:100%;aspect-ratio:1.15;max-width:100%;display:block;border:1px solid var(--line);border-radius:4px;background:radial-gradient(80% 80% at 50% 100%,rgba(111,143,168,.08),transparent),var(--bg)}
+.panel{display:grid;gap:22px;min-width:0}
+.range{display:grid;gap:10px}
+.range label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+.range label output{color:var(--brass-2)}
+input[type=range]{width:100%;accent-color:var(--brass);height:28px;background:transparent}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stage{padding:12px 10px;border:1px solid var(--line);border-radius:3px;font-size:12px;color:var(--fg-3);text-align:center;transition:.3s;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.stage.on{color:var(--bg);background:var(--brass);border-color:var(--brass)}
+.readout{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.readout div{padding:14px 16px;background:var(--bg);border:1px solid var(--line);border-radius:3px;min-width:0}
+.readout b{display:block;font-family:var(--display);font-size:clamp(26px,3vw,38px);font-weight:400;color:var(--brass-2);font-variant-numeric:tabular-nums;line-height:1.1}
+.readout small{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+@media(max-width:520px){.readout{grid-template-columns:1fr 1fr}.stages{grid-template-columns:1fr 1fr}}
+
+/* principles */
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.principles div{padding:32px 28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;gap:12px;background:var(--bg-2);min-width:0}
+.principles h3{font-size:24px}
+.principles p{color:var(--fg-2);font-size:14px;font-weight:300}
+.principles .k{font-family:var(--display);font-size:56px;line-height:1;color:var(--brass);font-weight:400}
+
+/* intake */
+.intake{background:linear-gradient(180deg,var(--bg),var(--bg-2));position:relative;overflow:hidden}
+.intake::before{content:"";position:absolute;inset:-20% -10% auto;height:70%;background:radial-gradient(50% 60% at 75% 30%,rgba(210,176,108,.09),transparent 70%);pointer-events:none}
+.intake .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;position:relative}
+@media(max-width:900px){.intake .grid{grid-template-columns:1fr;gap:36px}}
+.intake aside{display:grid;gap:22px;align-content:start;min-width:0}
+.intake aside h2{font-size:clamp(34px,4.5vw,58px)}
+.intake aside p{color:var(--fg-2);font-weight:300}
+.steps{display:grid;gap:14px;padding:22px;border:1px solid var(--line);border-radius:4px;background:rgba(13,17,24,.6)}
+.steps div{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;font-size:14px;color:var(--fg-2)}
+.steps div b{font-family:var(--mono);font-size:11px;color:var(--brass);letter-spacing:.14em}
+.contact{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg-3);display:grid;gap:8px}
+.contact span{color:var(--fg);user-select:all}
+form{display:grid;gap:18px;padding:clamp(22px,3vw,40px);background:var(--bg-3);border:1px solid var(--line);border-radius:4px;box-shadow:0 40px 100px -50px rgba(0,0,0,.9);min-width:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+.field{display:grid;gap:8px;min-width:0}
+.field label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between}
+.field label i{font-style:normal;color:var(--fg-3);opacity:.7}
+.field input,.field textarea,.field select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:3px;color:var(--fg);font-family:var(--body);font-size:15px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field textarea{min-height:130px;resize:vertical;line-height:1.5}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--brass);box-shadow:0 0 0 3px var(--brass-dim)}
+.field.bad input,.field.bad textarea{border-color:var(--bad)}
+.field .err{font-size:12px;color:var(--bad);display:none}
+.field.bad .err{display:block}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+.formfoot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:6px}
+.formfoot small{color:var(--fg-3);font-size:12px;max-width:34em}
+.status{display:none;padding:22px;border:1px solid var(--line);border-radius:4px;background:var(--bg);display:none;gap:12px}
+.status.show{display:grid}
+.status h3{font-size:26px;color:var(--brass-2)}
+.status p{color:var(--fg-2);font-size:14px}
+.status pre{white-space:pre-wrap;font-family:var(--mono);font-size:12px;color:var(--fg-2);background:var(--bg-2);padding:14px;border-radius:3px;border:1px solid var(--line);margin:0;max-height:220px;overflow:auto}
+.pillrow{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:8px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;cursor:pointer;color:var(--fg-2);background:transparent;font-family:var(--body);transition:.2s}
+.pill[aria-pressed=true]{background:var(--brass-dim);border-color:var(--brass);color:var(--brass-2)}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding-block:40px;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+footer a{text-decoration:none;color:var(--fg-2)}
+
+.reveal{opacity:1;transform:none;transition:opacity .8s,transform .8s}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.marquee .track{animation:none}}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Elite Management home">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.4"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".8" opacity=".55"/><circle cx="20" cy="20" r="3.2" fill="#f0d59a"/></svg></span>
+      <span><b>Elite Management</b><small>elitemgmt.io</small></span>
+    </a>
+    <div class="navlinks">
+      <a href="#practice">Practice</a><a href="#ascent">The Ascent</a><a href="#principles">Principles</a><a href="#intake">Begin</a>
+    </div>
+    <a class="btn ghost" href="#intake" style="padding:10px 16px">Request a consultation</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="lattice" aria-hidden="true"></canvas>
+  <div class="hint"><i></i> Drag the structure</div>
+  <div class="wrap">
+    <p class="eyebrow">Elite Management LLC</p>
+    <h1>Run the business<br>you <em>intend</em> to run.</h1>
+    <p class="lede">Elite Management works alongside owners and executive teams to turn operating reality into a deliberate structure: clearer numbers, cleaner vendor relationships, and a leadership cadence that holds under pressure.</p>
+    <div class="ctas">
+      <a class="btn" href="#intake">Begin an engagement →</a>
+      <a class="btn ghost" href="#practice">Explore the practice</a>
+    </div>
+    <div class="meta">
+      <span><b>Advisory</b> Operations · Finance · Growth</span>
+      <span><b>Based</b> Orange County, California</span>
+      <span><b>Serving</b> Nationwide, remote-first</span>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Operating Cadence</span><span>Vendor Economics</span><span>Contract Structure</span><span>Billing Integrity</span><span>Margin Architecture</span><span>Leadership Systems</span><span>Growth Sequencing</span><span>Capital Readiness</span>
+    <span>Operating Cadence</span><span>Vendor Economics</span><span>Contract Structure</span><span>Billing Integrity</span><span>Margin Architecture</span><span>Leadership Systems</span><span>Growth Sequencing</span><span>Capital Readiness</span>
+  </div>
+</div>
+
+<section class="block" id="practice">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">The practice</p>
+      <h2>Three disciplines, one operating model.</h2>
+      <p>Every engagement is built from the same three parts. We diagnose where money and time actually go, redesign the structure that produces those results, and stay in the room while the new structure takes hold.</p>
+    </div>
+    <div class="services">
+      <article class="card">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="#d2b06c" stroke-width="1.2"><circle cx="22" cy="22" r="18"/><path d="M22 4v36M4 22h36M9 9l26 26M35 9 9 35" opacity=".5"/></svg></span>
+        <span class="num">DIAGNOSE</span>
+        <h3>Operating Diagnostic</h3>
+        <p>A 30-day read of the whole business: cash conversion, contract economics, vendor spend, staffing load, and the decisions nobody owns. You get a single document that says what is true and what it costs.</p>
+        <ul><li>Cost-to-serve by customer and contract</li><li>Vendor and financing-partner review</li><li>Billing and collections audit</li></ul>
+      </article>
+      <article class="card">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="#d2b06c" stroke-width="1.2"><path d="M6 36 22 6l16 30z"/><path d="M14 36l8-15 8 15" opacity=".5"/><path d="M6 36h32"/></svg></span>
+        <span class="num">DESIGN</span>
+        <h3>Structural Redesign</h3>
+        <p>We rebuild the parts that leak: pricing tiers, service agreements, vendor terms, the monthly close, and the management rhythm. Each change is modeled before it is signed.</p>
+        <ul><li>Contract and tier architecture</li><li>Margin and pricing models</li><li>Financing and capital structure</li></ul>
+      </article>
+      <article class="card">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="#d2b06c" stroke-width="1.2"><path d="M6 34 16 22l8 6 14-16"/><path d="M30 12h8v8" /><path d="M6 40h32" opacity=".5"/></svg></span>
+        <span class="num">DELIVER</span>
+        <h3>Embedded Execution</h3>
+        <p>A standing seat at the leadership table for a defined term. We run the cadence, hold the numbers to account, and hand the system back when it runs without us.</p>
+        <ul><li>Fractional operating leadership</li><li>Weekly metrics and decision log</li><li>Transition plan at exit</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block ascent" id="ascent">
+  <div class="wrap">
+    <div class="grid">
+      <canvas id="ascent" aria-label="Interactive model of a business climbing from its current state to its future goal"></canvas>
+      <div class="panel">
+        <p class="eyebrow">The Ascent</p>
+        <h2 style="font-size:clamp(32px,4vw,52px)">From current state to stated goal.</h2>
+        <p style="color:var(--fg-2);font-weight:300">Every plan we write is a staircase, not a slope. Move the slider to see how a business compounds through four deliberate stages. The figures are an illustration of the method, not a forecast for yours.</p>
+        <div class="range">
+          <label for="progress"><span>Engagement progress</span><output id="progOut">Month 0</output></label>
+          <input type="range" id="progress" min="0" max="36" value="0" step="1">
+        </div>
+        <div class="stages" id="stages">
+          <div class="stage on">Diagnose</div><div class="stage">Design</div><div class="stage">Deliver</div><div class="stage">Handoff</div>
+        </div>
+        <div class="readout">
+          <div><b id="rMargin">18%</b><small>Net margin</small></div>
+          <div><b id="rCash">52d</b><small>Cash cycle</small></div>
+          <div><b id="rOwner">62h</b><small>Owner hrs / wk</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="principles">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Principles</p>
+      <h2>How we hold ourselves to account.</h2>
+    </div>
+    <div class="principles">
+      <div><span class="k">I</span><h3>Numbers before narrative.</h3><p>No recommendation is made until the cost of the current state is measured. Opinion is cheap; a reconciled ledger is not.</p></div>
+      <div><span class="k">II</span><h3>Every contract is a design decision.</h3><p>Terms, tiers and renewals shape margin more than any sales push. We treat them as engineered documents.</p></div>
+      <div><span class="k">III</span><h3>Owners should own less of the work.</h3><p>The measure of a good structure is how much of the business runs when the owner is not in the building.</p></div>
+      <div><span class="k">IV</span><h3>Leave a system, not a dependency.</h3><p>Engagements end on purpose, with a cadence, a metrics stack and a team that carries it forward.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block intake" id="intake">
+  <div class="wrap">
+    <div class="grid">
+      <aside>
+        <p class="eyebrow">Begin</p>
+        <h2>Tell us where you are. Tell us where you intend to be.</h2>
+        <p>Prospective clients start here. Describe the business as it runs today and the outcome you want. A principal reviews every submission personally and responds within two business days.</p>
+        <div class="steps">
+          <div><b>01</b><span>You submit the brief below.</span></div>
+          <div><b>02</b><span>We reply with three clarifying questions and a proposed scope.</span></div>
+          <div><b>03</b><span>A 45-minute working session, no charge, to confirm fit.</span></div>
+          <div><b>04</b><span>A written engagement letter. You decide.</span></div>
+        </div>
+        <div class="contact">
+          <div>Direct <span>value@elitemgmt.io</span></div>
+          <div>Confidential. Your brief is never shared or sold.</div>
+        </div>
+      </aside>
+
+      <form id="brief" novalidate>
+        <div class="row">
+          <div class="field"><label for="fname">Full name</label><input id="fname" name="name" autocomplete="name" required><span class="err">Please enter your name.</span></div>
+          <div class="field"><label for="ftitle">Title / role</label><input id="ftitle" name="title" autocomplete="organization-title" placeholder="Owner, CEO, COO…"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="fcompany">Company</label><input id="fcompany" name="company" autocomplete="organization" required><span class="err">Please enter your company.</span></div>
+          <div class="field"><label for="findustry">Industry</label><input id="findustry" name="industry" placeholder="e.g. Managed services, distribution"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="femail">Email</label><input id="femail" name="email" type="email" autocomplete="email" required><span class="err">Enter a valid email address.</span></div>
+          <div class="field"><label for="fphone">Phone <i>optional</i></label><input id="fphone" name="phone" type="tel" autocomplete="tel"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="frevenue">Annual revenue <i>optional</i></label>
+            <select id="frevenue" name="revenue"><option value="">Prefer not to say</option><option>Under $1M</option><option>$1M – $5M</option><option>$5M – $25M</option><option>$25M – $100M</option><option>Over $100M</option></select></div>
+          <div class="field"><label for="fteam">Team size <i>optional</i></label>
+            <select id="fteam" name="team"><option value="">Prefer not to say</option><option>1 – 10</option><option>11 – 50</option><option>51 – 200</option><option>201 – 1,000</option><option>1,000+</option></select></div>
+        </div>
+        <div class="field">
+          <label for="fcurrent">Current state</label>
+          <textarea id="fcurrent" name="current" required placeholder="How the business runs today: what works, what leaks, what keeps you up at night."></textarea>
+          <span class="err">Tell us a little about the current state.</span>
+        </div>
+        <div class="field">
+          <label for="fgoals">Future goals</label>
+          <textarea id="fgoals" name="goals" required placeholder="Where you intend to be in 12–36 months, and what has to change to get there."></textarea>
+          <span class="err">Tell us what you're aiming for.</span>
+        </div>
+        <div class="field">
+          <label>Areas of interest <i>optional</i></label>
+          <div class="pillrow" id="areas">
+            <button type="button" class="pill" aria-pressed="false">Operating diagnostic</button>
+            <button type="button" class="pill" aria-pressed="false">Contract &amp; pricing</button>
+            <button type="button" class="pill" aria-pressed="false">Vendor economics</button>
+            <button type="button" class="pill" aria-pressed="false">Billing &amp; cash</button>
+            <button type="button" class="pill" aria-pressed="false">Fractional leadership</button>
+            <button type="button" class="pill" aria-pressed="false">Exit / succession</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ftiming">Timing</label>
+          <select id="ftiming" name="timing"><option>Ready to start now</option><option>Within 90 days</option><option>Exploring for later this year</option><option>Just researching</option></select>
+        </div>
+        <div class="hp" aria-hidden="true"><label for="fweb">Website</label><input id="fweb" name="website" tabindex="-1" autocomplete="off"></div>
+        <div class="formfoot">
+          <small>By submitting you agree to be contacted about this inquiry. Nothing here constitutes financial, legal or tax advice.</small>
+          <button class="btn" type="submit" id="submitBtn">Submit the brief →</button>
+        </div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Elite Management LLC</span>
+    <span>elitemgmt.io</span>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasThree = typeof THREE !== 'undefined';
+
+  /* ---------- HERO LATTICE (Three.js) ---------- */
+  if (hasThree) {
+    const canvas = document.getElementById('lattice');
+    const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, 1, .1, 100);
+    camera.position.set(0, 0, 9);
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const brass = new THREE.Color('#d2b06c');
+    const pale  = new THREE.Color('#f0d59a');
+    const slate = new THREE.Color('#6f8fa8');
+
+    // outer geodesic wire
+    const ico = new THREE.IcosahedronGeometry(2.6, 2);
+    const wire = new THREE.LineSegments(new THREE.WireframeGeometry(ico), new THREE.LineBasicMaterial({color: brass, transparent:true, opacity:.22}));
+    group.add(wire);
+
+    // vertex nodes
+    const pos = ico.attributes.position;
+    const uniq = new Map();
+    for (let i=0;i<pos.count;i++){ const k=[pos.getX(i).toFixed(3),pos.getY(i).toFixed(3),pos.getZ(i).toFixed(3)].join(','); if(!uniq.has(k)) uniq.set(k,new THREE.Vector3(pos.getX(i),pos.getY(i),pos.getZ(i))); }
+    const nodes = [...uniq.values()];
+    const nodeGeo = new THREE.BufferGeometry().setFromPoints(nodes);
+    const nodeMat = new THREE.PointsMaterial({color: pale, size:.055, sizeAttenuation:true, transparent:true, opacity:.9});
+    group.add(new THREE.Points(nodeGeo, nodeMat));
+
+    // inner solid core: faceted, glassy
+    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.15, 0), new THREE.MeshStandardMaterial({color:'#0f141c', metalness:.85, roughness:.25, flatShading:true, emissive:'#1a1710', emissiveIntensity:.6}));
+    group.add(core);
+    const coreEdges = new THREE.LineSegments(new THREE.EdgesGeometry(core.geometry), new THREE.LineBasicMaterial({color: pale, transparent:true, opacity:.55}));
+    core.add(coreEdges);
+
+    // orbital rings
+    const rings = [];
+    [[3.4,.55,0],[3.9,-.35,.9],[4.4,.2,-1.4]].forEach(([r,tx,tz],i)=>{
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(r,.006,6,180), new THREE.MeshBasicMaterial({color:i===1?slate:brass, transparent:true, opacity:.5}));
+      ring.rotation.set(Math.PI/2+tx, 0, tz); group.add(ring); rings.push(ring);
+      // a bead on each ring
+      const bead = new THREE.Mesh(new THREE.SphereGeometry(.05,12,12), new THREE.MeshBasicMaterial({color: pale}));
+      bead.userData = {r, speed:(.25+i*.12)*(i%2?-1:1), phase:i*2.1};
+      ring.add(bead); ring.userData.bead = bead;
+    });
+
+    // dust
+    const dustN = 900, dustPos = new Float32Array(dustN*3);
+    for (let i=0;i<dustN;i++){ const r=5+Math.random()*9, t=Math.random()*Math.PI*2, p=Math.acos(2*Math.random()-1); dustPos[i*3]=r*Math.sin(p)*Math.cos(t); dustPos[i*3+1]=r*Math.sin(p)*Math.sin(t); dustPos[i*3+2]=r*Math.cos(p); }
+    const dust = new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(dustPos,3)), new THREE.PointsMaterial({color: slate, size:.03, transparent:true, opacity:.5}));
+    scene.add(dust);
+
+    scene.add(new THREE.AmbientLight('#ffffff', .35));
+    const key = new THREE.PointLight(pale, 2.2, 30); key.position.set(4,3,5); scene.add(key);
+    const rim = new THREE.PointLight(slate, 1.4, 30); rim.position.set(-5,-2,-3); scene.add(rim);
+
+    // interaction: drag to rotate, mouse parallax
+    let dragging=false, lx=0, ly=0, vx=0, vy=0, tx=0, ty=0, px=0, py=0;
+    const onDown=e=>{dragging=true; const p=e.touches?e.touches[0]:e; lx=p.clientX; ly=p.clientY;};
+    const onMove=e=>{ const p=e.touches?e.touches[0]:e; const nx=(p.clientX/innerWidth)*2-1, ny=(p.clientY/innerHeight)*2-1; px=nx; py=ny; if(dragging){ vy=(p.clientX-lx)*.006; vx=(p.clientY-ly)*.006; lx=p.clientX; ly=p.clientY; } };
+    const onUp=()=>dragging=false;
+    canvas.addEventListener('mousedown',onDown); addEventListener('mousemove',onMove); addEventListener('mouseup',onUp);
+    canvas.addEventListener('touchstart',onDown,{passive:true}); canvas.addEventListener('touchmove',onMove,{passive:true}); addEventListener('touchend',onUp);
+    canvas.style.cursor='grab';
+
+    function resize(){ const w=canvas.clientWidth, h=canvas.clientHeight; if(canvas.width!==w*renderer.getPixelRatio()||canvas.height!==h*renderer.getPixelRatio()){ renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); } // shift structure right on wide screens
+      group.position.x = w>900 ? 2.2 : 0; group.position.y = w>900 ? .2 : 1.2; group.scale.setScalar(w>900?1:.75); }
+    let t=0, visible=true;
+    new IntersectionObserver(en=>visible=en[0].isIntersecting).observe(canvas);
+    function frame(){
+      requestAnimationFrame(frame);
+      if(!visible) return;
+      resize();
+      t += reduce ? 0 : .008;
+      if(!dragging){ vx*=.94; vy*=.94; tx += (reduce?0:.0015) + vx; ty += (reduce?0:.003) + vy; } else { tx+=vx; ty+=vy; vx*=.6; vy*=.6; }
+      group.rotation.x = tx + py*.15; group.rotation.y = ty + px*.25;
+      core.rotation.y = -t*1.4; core.rotation.x = t*.6;
+      rings.forEach((r,i)=>{ r.rotation.z += (reduce?0:.001*(i+1)); const b=r.userData.bead, a=t*b.userData.speed+b.userData.phase; b.position.set(Math.cos(a)*b.userData.r, Math.sin(a)*b.userData.r, 0); });
+      dust.rotation.y = t*.05;
+      renderer.render(scene, camera);
+    }
+    frame();
+  }
+
+  /* ---------- TILT CARDS ---------- */
+  document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('pointermove',e=>{
+      const r=card.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+      card.style.setProperty('--mx', (x*100)+'%'); card.style.setProperty('--my', (y*100)+'%');
+      if(reduce) return;
+      card.style.transform = `rotateY(${(x-.5)*14}deg) rotateX(${(.5-y)*12}deg) translateZ(8px)`;
+    });
+    card.addEventListener('pointerleave',()=>{ card.style.transform=''; });
+  });
+
+  /* ---------- THE ASCENT (Three.js staircase) ---------- */
+  const slider = document.getElementById('progress'), out = document.getElementById('progOut');
+  const rM=document.getElementById('rMargin'), rC=document.getElementById('rCash'), rO=document.getElementById('rOwner');
+  const stages=[...document.querySelectorAll('.stage')];
+  const lerp=(a,b,k)=>a+(b-a)*k, ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+  let ascentStep=()=>{};
+  if (hasThree) {
+    const canvas=document.getElementById('ascent');
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    const scene=new THREE.Scene(); const camera=new THREE.PerspectiveCamera(38,1,.1,100); camera.position.set(6.5,5.2,8.5); camera.lookAt(0,1.4,0);
+    scene.add(new THREE.AmbientLight('#fff',.4)); const l=new THREE.PointLight('#f0d59a',1.8,40); l.position.set(4,8,4); scene.add(l); const l2=new THREE.PointLight('#6f8fa8',1,40); l2.position.set(-6,2,-4); scene.add(l2);
+    const grid=new THREE.GridHelper(12,12,'#2a3340','#161c25'); grid.position.y=-.01; scene.add(grid);
+    const N=12, steps=[];
+    const mat=()=>new THREE.MeshStandardMaterial({color:'#141a23',metalness:.6,roughness:.4,transparent:true,opacity:.95});
+    for(let i=0;i<N;i++){ const m=new THREE.Mesh(new THREE.BoxGeometry(.9,1,2.2),mat()); m.position.set(-4.5+i*.82,0,0); m.scale.y=.001; scene.add(m); const e=new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry),new THREE.LineBasicMaterial({color:'#d2b06c',transparent:true,opacity:.35})); m.add(e); steps.push(m); }
+    const marker=new THREE.Mesh(new THREE.OctahedronGeometry(.28,0),new THREE.MeshStandardMaterial({color:'#f0d59a',emissive:'#d2b06c',emissiveIntensity:.8,metalness:.9,roughness:.2})); scene.add(marker);
+    const goal=new THREE.Mesh(new THREE.RingGeometry(.35,.4,48),new THREE.MeshBasicMaterial({color:'#d2b06c',side:THREE.DoubleSide,transparent:true,opacity:.7})); goal.rotation.x=-Math.PI/2; goal.position.set(-4.5+(N-1)*.82,6.1,0); scene.add(goal);
+    let cur=0, target=0, t=0, visible=true;
+    new IntersectionObserver(en=>visible=en[0].isIntersecting).observe(canvas);
+    ascentStep=v=>{target=v};
+    function frame(){
+      requestAnimationFrame(frame); if(!visible) return;
+      const w=canvas.clientWidth,h=canvas.clientHeight; if(canvas.width!==w*renderer.getPixelRatio()){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+      cur += (target-cur)*(reduce?1:.08); t+=.01;
+      const k=cur/36;
+      steps.forEach((m,i)=>{ const local=Math.min(1,Math.max(0,(k*N-i))); const hgt=.15+ease(local)*(.45+i*.48); m.scale.y=Math.max(.001,hgt); m.position.y=hgt/2; m.material.opacity=.35+local*.6; m.material.color.setStyle(local>.99?'#1c1a14':'#141a23'); m.children[0].material.opacity=.2+local*.6; });
+      const idx=Math.min(N-1,Math.floor(k*N-.001)+ (k>0?0:0)); const cm=steps[Math.max(0,Math.min(N-1,Math.round(k*(N-1))))];
+      marker.position.set(cm.position.x, cm.scale.y+.5+Math.sin(t*3)*.06, 0); marker.rotation.y=t*1.2;
+      goal.material.opacity=.4+Math.sin(t*2)*.3; goal.rotation.z=t*.5;
+      camera.position.x=6.5+Math.sin(t*.3)*.4; camera.lookAt(0,1.2+k*1.6,0);
+      renderer.render(scene,camera);
+    }
+    frame();
+  }
+  function updateAscent(){
+    const v=+slider.value, k=v/36, e=ease(k);
+    out.textContent = v===0?'Month 0':`Month ${v}`;
+    stages.forEach((s,i)=>s.classList.toggle('on', v>=[0,6,15,30][i]));
+    rM.textContent = Math.round(lerp(18,31,e))+'%';
+    rC.textContent = Math.round(lerp(52,29,e))+'d';
+    rO.textContent = Math.round(lerp(62,34,e))+'h';
+    ascentStep(v);
+  }
+  slider.addEventListener('input',updateAscent); updateAscent();
+  if(!reduce){ let auto=0; const iv=setInterval(()=>{ if(document.activeElement===slider) {clearInterval(iv);return;} auto=Math.min(36,auto+1); slider.value=auto; updateAscent(); if(auto>=36) clearInterval(iv); }, 140); slider.addEventListener('pointerdown',()=>clearInterval(iv),{once:true}); }
+
+  /* ---------- INTAKE FORM ----------
+     Submissions are emailed to value@elitemgmt.io through Web3Forms (https://web3forms.com).
+     1. Create a free access key for value@elitemgmt.io at web3forms.com
+     2. Paste it below. Until then the form falls back to a copy-and-email flow. */
+  const FORM_ACCESS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE';
+  const form=document.getElementById('brief'), status=document.getElementById('status'), btn=document.getElementById('submitBtn');
+  document.getElementById('areas').addEventListener('click',e=>{ const b=e.target.closest('.pill'); if(!b) return; b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')!=='true'); });
+  const fields={name:'fname',company:'fcompany',email:'femail',current:'fcurrent',goals:'fgoals'};
+  function validate(){
+    let ok=true;
+    for(const [k,id] of Object.entries(fields)){ const el=document.getElementById(id), f=el.closest('.field'); let good=el.value.trim().length>0; if(k==='email') good=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()); f.classList.toggle('bad',!good); if(!good) ok=false; }
+    return ok;
+  }
+  Object.values(fields).forEach(id=>document.getElementById(id).addEventListener('input',e=>e.target.closest('.field').classList.remove('bad')));
+  function collect(){
+    const v=id=>document.getElementById(id).value.trim();
+    return { name:v('fname'), title:v('ftitle'), company:v('fcompany'), industry:v('findustry'), email:v('femail'), phone:v('fphone'), revenue:v('frevenue'), team:v('fteam'), currentState:v('fcurrent'), futureGoals:v('fgoals'), areas:[...document.querySelectorAll('#areas .pill[aria-pressed=true]')].map(b=>b.textContent.trim()), timing:v('ftiming'), submittedAt:new Date().toISOString(), source:'elitemgmt.io', status:'new' };
+  }
+  function summary(d){ return `Name: ${d.name}${d.title?' ('+d.title+')':''}\nCompany: ${d.company}${d.industry?' · '+d.industry:''}\nEmail: ${d.email}${d.phone?'\nPhone: '+d.phone:''}${d.revenue?'\nRevenue: '+d.revenue:''}${d.team?'\nTeam: '+d.team:''}\nTiming: ${d.timing}${d.areas.length?'\nAreas: '+d.areas.join(', '):''}\n\nCURRENT STATE\n${d.currentState}\n\nFUTURE GOALS\n${d.futureGoals}`; }
+  form.addEventListener('submit', async e=>{
+    e.preventDefault();
+    if(document.getElementById('fweb').value) return; // honeypot
+    if(!validate()){ form.querySelector('.field.bad input, .field.bad textarea')?.focus(); return; }
+    const data=collect(); btn.disabled=true; btn.textContent='Submitting…';
+    let saved=false, reason='';
+    try{
+      if(FORM_ACCESS_KEY && !FORM_ACCESS_KEY.startsWith('PASTE')){
+        const res=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+          body:JSON.stringify({access_key:FORM_ACCESS_KEY, subject:`New brief from ${data.name} — ${data.company}`, from_name:'elitemgmt.io intake', ...data, areas:data.areas.join(', ')})});
+        const j=await res.json(); if(res.ok && j.success) saved=true; else reason=j.message||'rejected';
+      } else reason='no-endpoint';
+    } catch(err){ reason='network'; }
+    btn.disabled=false; btn.textContent='Submit the brief →';
+    status.classList.add('show');
+    if(saved){
+      status.innerHTML=`<h3>Received. Thank you, ${data.name.split(' ')[0]}.</h3><p>Your brief is logged with Elite Management. A principal will reply to <b>${data.email}</b> within two business days.</p>`;
+      form.reset(); document.querySelectorAll('#areas .pill').forEach(b=>b.setAttribute('aria-pressed','false'));
+    } else {
+      status.innerHTML=`<h3>Almost there.</h3><p>We couldn't send your brief automatically. Copy the text below and send it to <b>value@elitemgmt.io</b>, and we'll pick it up from there.</p><pre id="briefText"></pre><div><button type="button" class="btn ghost" id="copyBrief">Copy brief</button></div>`;
+      document.getElementById('briefText').textContent=summary(data);
+      document.getElementById('copyBrief').addEventListener('click',async ev=>{ const b=ev.currentTarget; try{ await navigator.clipboard.writeText(summary(data)); b.textContent='Copied'; }catch(_){ const r=document.createRange(); r.selectNodeContents(document.getElementById('briefText')); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent='Selected — press Ctrl/Cmd+C'; } });
+    }
+    status.scrollIntoView({behavior: reduce?'auto':'smooth', block:'nearest'});
+  });
+})();
+</script>
+
+</body>
+</html>
