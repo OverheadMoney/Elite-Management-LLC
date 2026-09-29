@@ -39,7 +39,7 @@ var HEADERS = ['Received', 'Name', 'Title', 'Company', 'Industry', 'Email', 'Pho
 
 /** Health check: open the /exec URL in a browser. */
 function doGet() {
-  return json_({ ok: true, service: 'elitemgmt-intake', version: 'v3-branded', time: new Date().toISOString() });
+  return json_({ ok: true, service: 'elitemgmt-intake', version: 'v4-consulting', time: new Date().toISOString() });
 }
 
 /** Form submissions. Body is JSON sent as text/plain (keeps the request "simple", no CORS preflight). */
@@ -165,7 +165,7 @@ function signature_() {
       '<td width="1" style="width:1px;padding:0;background:#3b3527;line-height:1px;font-size:1px">&nbsp;</td>' +
       '<td valign="middle" style="padding:20px 22px 20px 22px">' +
         '<div style="font-family:Georgia,\'Times New Roman\',serif;font-size:20px;line-height:1.15;color:#ecebe6;letter-spacing:.01em">Elite Management <span style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.18em;color:#d2b06c;vertical-align:3px">LLC</span></div>' +
-        '<div style="font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.5;color:#d2b06c;letter-spacing:.14em;text-transform:uppercase;margin-top:4px">Operating &middot; Financial &middot; Growth Advisory</div>' +
+        '<div style="font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.5;color:#d2b06c;letter-spacing:.14em;text-transform:uppercase;margin-top:4px">Operations &middot; Sales &middot; Management Consulting</div>' +
         '<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#a8adb5;margin-top:12px"><a href="mailto:' + CONFIG.INBOX + '" style="color:#a8adb5;text-decoration:none">' + CONFIG.INBOX + '</a></div>' +
         '<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#a8adb5"><a href="https://elitemgmt.io" style="color:#f0d59a;text-decoration:none">elitemgmt.io</a><span style="color:#6e747d">&nbsp;&nbsp;&middot;&nbsp;&nbsp;Orange County, California</span></div>' +
       '</td>' +
@@ -173,7 +173,7 @@ function signature_() {
     '</table>' +
   '</td></tr>' +
   '<tr><td style="padding:10px 2px 0 2px;font-family:Helvetica,Arial,sans-serif;font-size:10px;line-height:1.5;color:#8a8f98;max-width:560px">' +
-    'CONFIDENTIAL. This message and any attachments are the proprietary and confidential information of Elite Management LLC, intended solely for the addressee. If you received it in error, please notify the sender and delete it; any review, use, or dissemination is prohibited. Nothing herein constitutes legal, tax, accounting, or investment advice, and no engagement exists absent a signed engagement letter. ' +
+    'CONFIDENTIAL. This message and any attachments are the proprietary and confidential information of Elite Management LLC, intended solely for the addressee. If you received it in error, please notify the sender and delete it; any review, use, or dissemination is prohibited. Nothing herein constitutes professional advice, and no engagement exists absent a signed engagement letter. ' +
     '&copy; 2026 Elite Management LLC. All rights reserved.' +
   '</td></tr>' +
   '</table>';
@@ -226,7 +226,7 @@ function confirmProspect_(d) {
   var text = first + ',\n\nThank you. Your brief for ' + d.company + ' is in front of a principal at Elite Management LLC. ' +
     'You will hear from us within two business days with clarifying questions and a proposed scope.\n\n' +
     'If anything changes in the meantime, reply to this email.\n\n— Elite Management LLC\n' + CONFIG.INBOX + '\nelitemgmt.io\n\n' +
-    'CONFIDENTIAL. This message is the proprietary and confidential information of Elite Management LLC, intended solely for the addressee. Nothing herein constitutes legal, tax, accounting, or investment advice, and no engagement exists absent a signed engagement letter.';
+    'CONFIDENTIAL. This message is the proprietary and confidential information of Elite Management LLC, intended solely for the addressee. Nothing herein constitutes professional advice, and no engagement exists absent a signed engagement letter.';
   var body = '' +
     '<p style="margin:0 0 16px">' + esc_(first) + ',</p>' +
     '<p style="margin:0 0 16px">Thank you. Your brief for <b>' + esc_(d.company) + '</b> is in front of a principal at Elite Management LLC. You will hear from us within two business days with clarifying questions and a proposed scope.</p>' +

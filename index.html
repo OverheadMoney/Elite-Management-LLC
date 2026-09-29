@@ -29,7 +29,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Elite Management LLC</title>
-<meta name="description" content="Elite Management LLC — operating, financial and growth advisory for owner-led businesses. Clearer numbers, cleaner vendor relationships, a leadership cadence that holds.">
+<meta name="description" content="Elite Management LLC — operations, sales and management consulting for owner-led businesses. Clearer numbers, cleaner vendor relationships, a leadership cadence that holds.">
 <meta property="og:title" content="Elite Management LLC">
 <meta property="og:description" content="Run the business you intend to run.">
 <meta property="og:url" content="https://elitemgmt.io/">
@@ -154,7 +154,12 @@ section.block{padding-block:clamp(72px,10vw,128px)}
 @keyframes spin{to{transform:rotate(360deg)}}
 body.gl-lost #stage,body.gl-lost #lattice{visibility:hidden}
 body.gl-lost .scene .fb{display:grid}
-body.gl-lost .hint{display:none}
+.scene .fb canvas{position:absolute;inset:0;width:100%;height:100%;display:none}
+body.gl-lost .scene .fb.soft canvas{display:block}
+body.gl-lost .scene .fb.soft svg{display:none}
+#latticeSoft{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:none}
+body.gl-lost #latticeSoft{display:block}
+
 .scene .tag{position:absolute;left:16px;top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3);pointer-events:none}
 .scene .tag b{color:var(--brass);font-weight:500}
 #ascentScene{aspect-ratio:1.15}
@@ -315,6 +320,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
 <canvas id="stage" aria-hidden="true"></canvas>
 <header class="hero" id="top">
   <canvas id="lattice" aria-hidden="true"></canvas>
+  <canvas id="latticeSoft" aria-hidden="true"></canvas>
   <div class="hint"><i></i> Drag the structure</div>
   <div class="wrap">
     <p class="eyebrow">Elite Management LLC</p>
@@ -325,7 +331,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
       <a class="btn ghost" href="#practice">Explore the practice</a>
     </div>
     <div class="meta">
-      <span><b>Advisory</b> Operations · Finance · Growth</span>
+      <span><b>Consulting</b> Operations · Sales · Management</span>
       <span><b>Based</b> Orange County, California</span>
       <span><b>Serving</b> Nationwide, remote-first</span>
     </div>
@@ -334,8 +340,8 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
 
 <div class="marquee" aria-hidden="true">
   <div class="track">
-    <span>Operating Cadence</span><span>Vendor Economics</span><span>Contract Structure</span><span>Billing Integrity</span><span>Margin Architecture</span><span>Leadership Systems</span><span>Growth Sequencing</span><span>Capital Readiness</span>
-    <span>Operating Cadence</span><span>Vendor Economics</span><span>Contract Structure</span><span>Billing Integrity</span><span>Margin Architecture</span><span>Leadership Systems</span><span>Growth Sequencing</span><span>Capital Readiness</span>
+    <span>Operating Cadence</span><span>Vendor Economics</span><span>Contract Structure</span><span>Billing Integrity</span><span>Margin Architecture</span><span>Leadership Systems</span><span>Growth Sequencing</span><span>Sales Discipline</span>
+    <span>Operating Cadence</span><span>Vendor Economics</span><span>Contract Structure</span><span>Billing Integrity</span><span>Margin Architecture</span><span>Leadership Systems</span><span>Growth Sequencing</span><span>Sales Discipline</span>
   </div>
 </div>
 
@@ -351,15 +357,15 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
         <span class="glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="#d2b06c" stroke-width="1.2"><circle cx="22" cy="22" r="18"/><path d="M22 4v36M4 22h36M9 9l26 26M35 9 9 35" opacity=".5"/></svg></span>
         <span class="num">DIAGNOSE</span>
         <h3>Operating Diagnostic</h3>
-        <p>A 30-day read of the whole business: cash conversion, contract economics, vendor spend, staffing load, and the decisions nobody owns. You get a single document that says what is true and what it costs.</p>
-        <ul><li>Cost-to-serve by customer and contract</li><li>Vendor and financing-partner review</li><li>Billing and collections audit</li></ul>
+        <p>A 30-day read of the whole business: how work flows, where contracts and vendors leak, how the sales process actually runs, staffing load, and the decisions nobody owns. You get a single document that says what is true and what it costs.</p>
+        <ul><li>Cost-to-serve by customer and contract</li><li>Vendor and partner review</li><li>Billing and collections audit</li></ul>
       </article>
       <article class="card rv">
         <span class="glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="#d2b06c" stroke-width="1.2"><path d="M6 36 22 6l16 30z"/><path d="M14 36l8-15 8 15" opacity=".5"/><path d="M6 36h32"/></svg></span>
         <span class="num">DESIGN</span>
         <h3>Structural Redesign</h3>
-        <p>We rebuild the parts that leak: pricing tiers, service agreements, vendor terms, the monthly close, and the management rhythm. Each change is modeled before it is signed.</p>
-        <ul><li>Contract and tier architecture</li><li>Margin and pricing models</li><li>Financing and capital structure</li></ul>
+        <p>We rebuild the parts that leak: pricing tiers, service agreements, vendor terms, the sales process, and the management rhythm. Each change is modeled before it is signed.</p>
+        <ul><li>Contract and tier architecture</li><li>Margin and pricing models</li><li>Sales process and pipeline design</li></ul>
       </article>
       <article class="card rv">
         <span class="glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="#d2b06c" stroke-width="1.2"><path d="M6 34 16 22l8 6 14-16"/><path d="M30 12h8v8"/><path d="M6 40h32" opacity=".5"/></svg></span>
@@ -377,12 +383,12 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     <div class="grid">
       <div class="scene rv" id="ascentScene" role="img" aria-label="Interactive model of a business climbing from its current state to its future goal">
         <span class="tag"><b>Model</b> · drag to orbit</span>
-        <div class="fb" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.2"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".6" opacity=".55"/><circle cx="20" cy="20" r="3" fill="#f0d59a"/></svg></div>
+        <div class="fb" aria-hidden="true"><canvas class="softc"></canvas><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.2"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".6" opacity=".55"/><circle cx="20" cy="20" r="3" fill="#f0d59a"/></svg></div>
       </div>
       <div class="panel rv">
         <p class="eyebrow">The Ascent</p>
         <h2 style="font-size:clamp(32px,4vw,52px)">From current state to stated goal.</h2>
-        <p style="color:var(--fg-2);font-weight:300">Every plan we write is a staircase, not a slope. Move the slider to see how a business compounds through four deliberate stages. The figures illustrate the method; they are not a forecast for your business.</p>
+        <p style="color:var(--fg-2);font-weight:300">Every plan we write is a staircase, not a slope. Move the slider to see how an operation compounds through four deliberate stages. The figures illustrate the method; they are not a forecast for your business.</p>
         <div class="range">
           <label for="progress"><span>Engagement progress</span><output id="progOut">Month 0</output></label>
           <div class="track" id="progTrack">
@@ -394,8 +400,8 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
           <button type="button" class="stage on" data-m="0">Diagnose</button><button type="button" class="stage" data-m="6">Design</button><button type="button" class="stage" data-m="15">Deliver</button><button type="button" class="stage" data-m="30">Handoff</button>
         </div>
         <div class="readout">
-          <div><b id="rMargin">18%</b><small>Net margin</small></div>
-          <div><b id="rCash">52d</b><small>Cash cycle</small></div>
+          <div><b id="rMargin">18%</b><small>Operating margin</small></div>
+          <div><b id="rCash">52d</b><small>Days to invoice</small></div>
           <div><b id="rOwner">62h</b><small>Owner hrs / wk</small></div>
         </div>
       </div>
@@ -413,7 +419,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     <div class="grid">
       <div class="scene rv" id="monolithScene">
         <span class="tag"><b>Monolith</b> · four tenets</span>
-        <div class="fb" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.2"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".6" opacity=".55"/><circle cx="20" cy="20" r="3" fill="#f0d59a"/></svg></div>
+        <div class="fb" aria-hidden="true"><canvas class="softc"></canvas><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.2"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".6" opacity=".55"/><circle cx="20" cy="20" r="3" fill="#f0d59a"/></svg></div>
       </div>
       <div class="plist rv" id="plist">
         <div class="pitem on" data-i="0" tabindex="0"><span class="k">I</span><div><h3>Numbers before narrative.</h3><p>No recommendation is made until the cost of the current state is measured. Opinion is cheap; a reconciled ledger is not.</p></div></div>
@@ -444,7 +450,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
         </div>
         <div class="scene" id="sealScene" aria-hidden="true">
           <span class="tag"><b>Seal</b> · Elite Management LLC</span>
-          <div class="fb" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.2"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".6" opacity=".55"/><circle cx="20" cy="20" r="3" fill="#f0d59a"/></svg></div>
+          <div class="fb" aria-hidden="true"><canvas class="softc"></canvas><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.2"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".6" opacity=".55"/><circle cx="20" cy="20" r="3" fill="#f0d59a"/></svg></div>
         </div>
       </aside>
 
@@ -487,9 +493,9 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
           <span class="lbl">Areas of interest <i>optional</i></span>
           <div class="pillrow" id="areas">
             <button type="button" class="pill" aria-pressed="false">Operating diagnostic</button>
-            <button type="button" class="pill" aria-pressed="false">Contract &amp; pricing</button>
+            <button type="button" class="pill" aria-pressed="false">Sales process</button><button type="button" class="pill" aria-pressed="false">Contract &amp; pricing</button>
             <button type="button" class="pill" aria-pressed="false">Vendor economics</button>
-            <button type="button" class="pill" aria-pressed="false">Billing &amp; cash</button>
+            <button type="button" class="pill" aria-pressed="false">Billing &amp; collections</button>
             <button type="button" class="pill" aria-pressed="false">Fractional leadership</button>
             <button type="button" class="pill" aria-pressed="false">Exit / succession</button>
           </div>
@@ -501,7 +507,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
           </div></div>
         <div class="hp" aria-hidden="true"><label for="fweb">Website</label><input id="fweb" name="website" tabindex="-1" autocomplete="off"></div>
         <div class="formfoot">
-          <small>By submitting, you agree that Elite Management LLC may contact you about this inquiry and process your information as described in our <a href="#" data-modal="privacy">Privacy Notice</a>. Nothing on this site is legal, tax, accounting or investment advice.</small>
+          <small>By submitting, you agree that Elite Management LLC may contact you about this inquiry and process your information as described in our <a href="#" data-modal="privacy">Privacy Notice</a>. This site is general information, not professional advice.</small>
           <button class="btn" type="submit" id="submitBtn">Submit the brief →</button>
         </div>
         <div class="status" id="status" role="status" aria-live="polite"></div>
@@ -515,7 +521,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     <div class="top">
       <div>
         <h4>Elite Management LLC</h4>
-        <p class="legal-note">Elite Management LLC is a limited liability company providing operating, financial and growth advisory services to privately held businesses. Information on this site is general in nature and does not create a client relationship. An engagement exists only under a signed engagement letter.</p>
+        <p class="legal-note">Elite Management LLC is a limited liability company providing operations, sales and management consulting services to privately held businesses. Information on this site is general in nature and does not create a client relationship. An engagement exists only under a signed engagement letter.</p>
       </div>
       <div>
         <h4>Site</h4>
@@ -563,9 +569,9 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     <h3 id="termsTitle">Terms of Use</h3>
     <p>By using elitemgmt.io you agree to these terms. If you do not agree, please do not use the site.</p>
     <h4>Informational only</h4>
-    <p>Content on this site is provided for general information about Elite Management LLC and its services. It is not legal, tax, accounting, investment or other professional advice, and it does not take your particular circumstances into account.</p>
+    <p>Content on this site is provided for general information about Elite Management LLC and its services. It is not legal, tax, accounting or other professional advice, and it does not take your particular circumstances into account.</p>
     <h4>No client relationship</h4>
-    <p>Submitting the intake brief, corresponding with us, or attending an introductory session does not create a client or advisory relationship. A relationship exists only under a written engagement letter signed by Elite Management LLC and the client.</p>
+    <p>Submitting the intake brief, corresponding with us, or attending an introductory session does not create a client or consulting relationship. A relationship exists only under a written engagement letter signed by Elite Management LLC and the client.</p>
     <h4>Illustrations</h4>
     <p>Interactive models and figures on this site, including "The Ascent," illustrate how we approach engagements. They are not projections, forecasts or guarantees of results for any business.</p>
     <h4>Intellectual property</h4>
@@ -589,6 +595,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
   document.documentElement.classList.add('js');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hasThree = typeof THREE !== 'undefined';
+  let ascentProgress=0, principleActive=0;
   const BRASS='#d2b06c', PALE='#f0d59a', SLATE='#6f8fa8';
 
   /* ---------- WebGL budget: exactly two contexts (hero + shared stage). Loss → designed fallback. ---------- */
@@ -733,7 +740,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     track.style.setProperty('--fill',(k*100)+'%');
     stages.forEach(s=>s.classList.toggle('on',v>=+s.dataset.m));
     rM.textContent=Math.round(lerp(18,31,e))+'%'; rC.textContent=Math.round(lerp(52,29,e))+'d'; rO.textContent=Math.round(lerp(62,34,e))+'h';
-    ascentStep(v);
+    ascentProgress=v; ascentStep(v);
   }
   slider.addEventListener('input',updateAscent); updateAscent();
   stages.forEach(s=>s.addEventListener('click',()=>{slider.value=s.dataset.m;updateAscent();}));
@@ -777,7 +784,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
       halo.rotation.z=t*.3;
     }; });
   } catch(err){ console.warn('Monolith 3D unavailable',err); }
-  function activate(i){ pitems.forEach(p=>p.classList.toggle('on',+p.dataset.i===i)); setPrinciple(i); }
+  function activate(i){ principleActive=i; pitems.forEach(p=>p.classList.toggle('on',+p.dataset.i===i)); setPrinciple(i); }
   pitems.forEach(p=>{ ['pointerenter','focus','click'].forEach(ev=>p.addEventListener(ev,()=>activate(+p.dataset.i))); });
   if(!reduce){ let pi=0; const piv=setInterval(()=>{ if(document.querySelector('#plist:hover')) return; pi=(pi+1)%4; activate(pi); },3200); }
 
@@ -819,6 +826,76 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
       sat.position.set(Math.cos(t*1.1)*2.3,0,Math.sin(t*1.1)*2.3); orbit.rotation.y=-t*.2;
     }; });
   } catch(err){ console.warn('Seal 3D unavailable',err); }
+
+
+  /* ---------- Software 3D fallback: wireframe renderer on Canvas 2D, used whenever WebGL is unavailable. Drag works. ---------- */
+  function Soft(el, canvas, opts){
+    const ctx=canvas.getContext('2d'); if(!ctx) return;
+    let rx=opts.rx??.35, ry=opts.ry??0, vy=0, t=0;
+    dragger(el,(dx,dy)=>{ vy=dx*.006; rx=Math.max(-1.2,Math.min(1.2,rx+dy*.004)); });
+    const fbBox=canvas.closest('.fb'); if(fbBox) fbBox.classList.add('soft');
+    function frame(){
+      requestAnimationFrame(frame);
+      if(!document.body.classList.contains('gl-lost')) return;
+      const r=el.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight||r.width<2) return;
+      const W=Math.round(r.width),H=Math.round(r.height); if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}
+      ry+=vy; vy*=.92; ry+=reduce?0:(opts.spin??.004); t+=reduce?0:.01;
+      const cy=Math.cos(ry),sy=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx), sc=Math.min(W,H)*(opts.scale??.16), cam=opts.cam??7, off=opts.offset||[0,0];
+      const P=(x,y,z)=>{ x-= (opts.center?.[0]||0); y-=(opts.center?.[1]||0); z-=(opts.center?.[2]||0); let X=x*cy+z*sy, Z=-x*sy+z*cy; let Y=y*cx-Z*sx; Z=y*sx+Z*cx; const d=cam/(cam+Z); return [W*(.5+off[0])+X*d*sc, H*(.5+off[1])-Y*d*sc, d]; };
+      ctx.clearRect(0,0,W,H); ctx.lineCap='round'; ctx.lineJoin='round';
+      const line=(a,b,col,wgt)=>{ const A=P(...a),B=P(...b); const d=(A[2]+B[2])/2; ctx.globalAlpha=Math.max(.12,Math.min(1,(d-.55)*1.6)); ctx.strokeStyle=col||BRASS; ctx.lineWidth=(wgt||1)*Math.max(.7,d); ctx.beginPath(); ctx.moveTo(A[0],A[1]); ctx.lineTo(B[0],B[1]); ctx.stroke(); };
+      const dot=(a,col,rad)=>{ const A=P(...a); ctx.globalAlpha=Math.max(.2,Math.min(1,(A[2]-.5)*1.6)); ctx.fillStyle=col||PALE; ctx.beginPath(); ctx.arc(A[0],A[1],(rad||2.5)*Math.max(.6,A[2]),0,Math.PI*2); ctx.fill(); };
+      const box=(x,y,z,w,h,d,col,wgt)=>{ const c=[[x-w/2,y-h/2,z-d/2],[x+w/2,y-h/2,z-d/2],[x+w/2,y-h/2,z+d/2],[x-w/2,y-h/2,z+d/2],[x-w/2,y+h/2,z-d/2],[x+w/2,y+h/2,z-d/2],[x+w/2,y+h/2,z+d/2],[x-w/2,y+h/2,z+d/2]]; [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]].forEach(([a,b])=>line(c[a],c[b],col,wgt)); };
+      const ring=(y,rad,n,col,tilt)=>{ let prev=null; for(let i=0;i<=n;i++){ const a=i/n*Math.PI*2; let pt=[Math.cos(a)*rad,y,Math.sin(a)*rad]; if(tilt){ const [tx,tz]=tilt; const c1=Math.cos(tx),s1=Math.sin(tx); pt=[pt[0],pt[1]*c1-pt[2]*s1,pt[1]*s1+pt[2]*c1]; const c2=Math.cos(tz),s2=Math.sin(tz); pt=[pt[0]*c2-pt[1]*s2,pt[0]*s2+pt[1]*c2,pt[2]]; } if(prev) line(prev,pt,col,1); prev=pt; } };
+      const octa=(x,y,z,r,rot,col)=>{ const c=Math.cos(rot),s=Math.sin(rot); const v=[[0,r,0],[0,-r,0],[r,0,0],[-r,0,0],[0,0,r],[0,0,-r]].map(([a,b,cc])=>[x+a*c+cc*s,y+b,z-a*s+cc*c]); [[0,2],[0,3],[0,4],[0,5],[1,2],[1,3],[1,4],[1,5],[2,4],[4,3],[3,5],[5,2]].forEach(([a,b])=>line(v[a],v[b],col||PALE,1.2)); };
+      opts.draw({t,line,dot,box,ring,octa,W,H});
+      ctx.globalAlpha=1;
+    }
+    requestAnimationFrame(frame);
+  }
+  // Hero: icosahedral lattice with rings and a spinning core
+  (function(){
+    const el=document.querySelector('.hero'), canvas=document.getElementById('latticeSoft'); if(!el||!canvas) return;
+    const phi=(1+Math.sqrt(5))/2, R=2.6, n=Math.sqrt(1+phi*phi);
+    const V=[[-1,phi,0],[1,phi,0],[-1,-phi,0],[1,-phi,0],[0,-1,phi],[0,1,phi],[0,-1,-phi],[0,1,-phi],[phi,0,-1],[phi,0,1],[-phi,0,-1],[-phi,0,1]].map(v=>v.map(c=>c/n*R));
+    const E=[[0,11],[0,5],[0,1],[0,7],[0,10],[1,5],[5,11],[11,10],[10,7],[7,1],[3,9],[3,4],[3,2],[3,6],[3,8],[4,9],[2,4],[6,2],[8,6],[9,8],[4,5],[9,5],[9,1],[8,1],[8,7],[6,7],[6,10],[2,10],[2,11],[4,11]];
+    Soft(el,canvas,{rx:.3,spin:.003,scale:.085,cam:9,offset:[innerWidth>900?.24:0,innerWidth>900?-.06:-.25],draw:({t,line,dot,ring,octa})=>{
+      E.forEach(([a,b])=>line(V[a],V[b],BRASS,.9)); V.forEach(v=>dot(v,PALE,2.2));
+      ring(0,3.4,90,BRASS,[.55,0]); ring(0,3.9,90,SLATE,[-.35,.9]); ring(0,4.4,90,BRASS,[.2,-1.4]);
+      octa(0,0,0,1.15,t*1.4,PALE);
+    }});
+  })();
+  // Ascent: staircase
+  (function(){
+    const el=document.getElementById('ascentScene'); const canvas=el&&el.querySelector('.softc'); if(!canvas) return;
+    Soft(el,canvas,{rx:.42,ry:.6,spin:.0015,scale:.075,cam:12,center:[0,2.2,0],draw:({t,box,line,ring,octa})=>{
+      const N=12,k=ascentProgress/36; let cur=null;
+      for(let i=-6;i<=6;i++){ line([i*1,0,-6],[i*1,0,6],'#2a3340',.6); line([-6,0,i*1],[6,0,i*1],'#2a3340',.6); }
+      for(let i=0;i<N;i++){ const local=Math.min(1,Math.max(0,(k*N-i))); const hgt=.15+ease(local)*(.45+i*.48); const x=-4.5+i*.82; box(x,hgt/2,0,.9,hgt,2.2,BRASS,local>.99?1.4:.8); if(i===Math.round(k*(N-1))) cur=[x,hgt]; }
+      ring(6.1,.38,40,BRASS,null); if(cur) octa(cur[0],cur[1]+.5+Math.sin(t*3)*.06,0,.28,t*1.2,PALE);
+    }});
+  })();
+  // Monolith: four slabs
+  (function(){
+    const el=document.getElementById('monolithScene'); const canvas=el&&el.querySelector('.softc'); if(!canvas) return;
+    const H=.95,GAP=.18; const off=[0,0,0,0];
+    Soft(el,canvas,{rx:.28,spin:.004,scale:.135,cam:9,center:[0,-.2,0],draw:({t,box,ring})=>{
+      for(let i=0;i<4;i++){ const on=i===principleActive; off[i]+=((on?.55:0)-off[i])*.12; box(off[i],(1.5-i)*(H+GAP),0,2.4,H,1.6,on?PALE:BRASS,on?1.6:.8); }
+      ring(-2*(H+GAP)-.1,2.3,60,BRASS,null); ring(-2*(H+GAP)-.08,2.9,80,'#8a7448',null);
+    }});
+  })();
+  // Seal: hexagonal prism, ring, gem, orbit
+  (function(){
+    const el=document.getElementById('sealScene'); const canvas=el&&el.querySelector('.softc'); if(!canvas) return;
+    const hex=(y,r)=>Array.from({length:6},(_,i)=>[Math.cos(i/6*Math.PI*2)*r,y,Math.sin(i/6*Math.PI*2)*r]);
+    Soft(el,canvas,{rx:.55,spin:.006,scale:.2,cam:8,draw:({t,line,ring,octa,dot})=>{
+      const top=hex(.08,1.7),bot=hex(-.08,1.7),ins=hex(.11,1.45);
+      for(let i=0;i<6;i++){ const j=(i+1)%6; line(top[i],top[j],BRASS,1.4); line(bot[i],bot[j],BRASS,1); line(top[i],bot[i],BRASS,1); line(ins[i],ins[j],'#8a7448',.8); }
+      ring(.14,1.15,60,PALE,null); ring(.14,1.42,60,'#8a7448',null);
+      octa(0,.6+Math.sin(t*1.2)*.05,0,.42,t*1.5,PALE);
+      ring(0,2.3,80,'#8a7448',[.35,0]); dot([Math.cos(t*1.1)*2.3,Math.sin(.35)*Math.sin(t*1.1)*2.3*0,Math.sin(t*1.1)*2.3],PALE,2.5);
+    }});
+  })();
 
   /* ---------- CUSTOM SELECT ---------- */
   const sels=[...document.querySelectorAll('.sel')];
