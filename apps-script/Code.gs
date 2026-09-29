@@ -146,20 +146,70 @@ function briefText_(d, when, row) {
   return lines.join('\n');
 }
 
+
+/* ---------- email chrome ---------- */
+
+var SEAL_URL = 'https://elitemgmt.io/assets/seal-140.png';
+
+function esc_(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function nl_(s) { return esc_(s).replace(/\n/g, '<br>'); }
+
+/** Branded signature card + confidentiality line (table-based; renders in Gmail, Outlook, Apple Mail, light or dark). */
+function signature_() {
+  return '' +
+  '<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;font-family:Helvetica,Arial,sans-serif;max-width:560px;margin-top:28px">' +
+  '<tr><td style="padding:0">' +
+    '<table cellpadding="0" cellspacing="0" border="0" role="presentation" bgcolor="#0d1118" style="border-collapse:separate;background:#0d1118;border:1px solid #2a2f3a;border-radius:4px;width:100%;max-width:560px">' +
+    '<tr>' +
+      '<td width="150" valign="middle" style="padding:22px 6px 22px 22px;width:150px"><a href="https://elitemgmt.io" style="text-decoration:none"><img src="' + SEAL_URL + '" width="128" height="84" alt="Elite Management LLC seal" style="display:block;width:128px;height:auto;border:0;outline:none"></a></td>' +
+      '<td width="1" style="width:1px;padding:0;background:#3b3527;line-height:1px;font-size:1px">&nbsp;</td>' +
+      '<td valign="middle" style="padding:20px 22px 20px 22px">' +
+        '<div style="font-family:Georgia,\'Times New Roman\',serif;font-size:20px;line-height:1.15;color:#ecebe6;letter-spacing:.01em">Elite Management <span style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.18em;color:#d2b06c;vertical-align:3px">LLC</span></div>' +
+        '<div style="font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.5;color:#d2b06c;letter-spacing:.14em;text-transform:uppercase;margin-top:4px">Operating &middot; Financial &middot; Growth Advisory</div>' +
+        '<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#a8adb5;margin-top:12px"><a href="mailto:' + CONFIG.INBOX + '" style="color:#a8adb5;text-decoration:none">' + CONFIG.INBOX + '</a></div>' +
+        '<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#a8adb5"><a href="https://elitemgmt.io" style="color:#f0d59a;text-decoration:none">elitemgmt.io</a><span style="color:#6e747d">&nbsp;&nbsp;&middot;&nbsp;&nbsp;Orange County, California</span></div>' +
+      '</td>' +
+    '</tr>' +
+    '</table>' +
+  '</td></tr>' +
+  '<tr><td style="padding:10px 2px 0 2px;font-family:Helvetica,Arial,sans-serif;font-size:10px;line-height:1.5;color:#8a8f98;max-width:560px">' +
+    'CONFIDENTIAL. This message and any attachments are the proprietary and confidential information of Elite Management LLC, intended solely for the addressee. If you received it in error, please notify the sender and delete it; any review, use, or dissemination is prohibited. Nothing herein constitutes legal, tax, accounting, or investment advice, and no engagement exists absent a signed engagement letter. ' +
+    '&copy; 2026 Elite Management LLC. All rights reserved.' +
+  '</td></tr>' +
+  '</table>';
+}
+
+/** Wraps body HTML in the site's dark header + light reading panel. */
+function shell_(eyebrow, title, bodyHtml) {
+  return '' +
+  '<div style="background:#07090d;padding:32px 16px;font-family:Helvetica,Arial,sans-serif">' +
+  '<table cellpadding="0" cellspacing="0" border="0" role="presentation" align="center" style="border-collapse:separate;width:100%;max-width:600px;margin:0 auto">' +
+    '<tr><td style="padding:0 0 18px 0">' +
+      '<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse"><tr>' +
+        '<td valign="middle" style="padding-right:12px"><img src="' + SEAL_URL + '" width="56" height="37" alt="" style="display:block;width:56px;height:auto;border:0"></td>' +
+        '<td valign="middle" style="font-family:Georgia,\'Times New Roman\',serif;font-size:18px;color:#ecebe6">Elite Management <span style="font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.18em;color:#d2b06c;vertical-align:2px">LLC</span></td>' +
+      '</tr></table>' +
+    '</td></tr>' +
+    '<tr><td bgcolor="#ffffff" style="background:#ffffff;border-radius:4px;padding:34px 34px 30px 34px">' +
+      '<div style="font-family:Courier,monospace;font-size:11px;letter-spacing:.2em;color:#a8863f;text-transform:uppercase">' + esc_(eyebrow) + '</div>' +
+      '<h1 style="font-family:Georgia,\'Times New Roman\',serif;font-weight:normal;font-size:28px;line-height:1.15;color:#111;margin:10px 0 22px 0">' + esc_(title) + '</h1>' +
+      '<div style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#222">' + bodyHtml + '</div>' +
+    '</td></tr>' +
+    '<tr><td style="padding:0">' + signature_() + '</td></tr>' +
+  '</table></div>';
+}
+
 function notifyInbox_(d, when, row) {
-  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }).replace(/\n/g, '<br>'); };
-  var rowsHtml = [
+  var rows = [
     ['Name', d.name + (d.title ? ' (' + d.title + ')' : '')], ['Company', d.company + (d.industry ? ' · ' + d.industry : '')],
     ['Email', d.email], ['Phone', d.phone || '—'], ['Revenue', d.revenue || '—'], ['Team', d.team || '—'],
     ['Timing', d.timing || '—'], ['Areas', d.areas || '—']
-  ].map(function (r) { return '<tr><td style="padding:6px 12px 6px 0;color:#6e747d;font:12px/1.4 monospace;letter-spacing:.1em;text-transform:uppercase;vertical-align:top">' + r[0] + '</td><td style="padding:6px 0;font:15px/1.5 Helvetica,Arial,sans-serif;color:#111">' + esc(r[1]) + '</td></tr>'; }).join('');
-  var html = '<div style="max-width:640px;font-family:Helvetica,Arial,sans-serif;color:#111">' +
-    '<p style="font:11px/1 monospace;letter-spacing:.2em;color:#a8863f;text-transform:uppercase">Elite Management · New brief</p>' +
-    '<h2 style="font-weight:500;margin:6px 0 18px">' + esc(d.company) + '</h2>' +
-    '<table cellspacing="0" cellpadding="0">' + rowsHtml + '</table>' +
-    '<h3 style="margin:24px 0 6px;font:12px/1 monospace;letter-spacing:.2em;color:#a8863f">CURRENT STATE</h3><p style="font-size:15px;line-height:1.55">' + esc(d.currentState) + '</p>' +
-    '<h3 style="margin:24px 0 6px;font:12px/1 monospace;letter-spacing:.2em;color:#a8863f">FUTURE GOALS</h3><p style="font-size:15px;line-height:1.55">' + esc(d.futureGoals) + '</p>' +
-    '<p style="margin-top:28px;font-size:12px;color:#6e747d">Logged to the Inquiries sheet, row ' + row + '. Reply to this email to answer ' + esc(d.name.split(' ')[0]) + ' directly.</p></div>';
+  ].map(function (r) { return '<tr><td style="padding:7px 14px 7px 0;color:#6e747d;font-family:Courier,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;vertical-align:top;white-space:nowrap">' + r[0] + '</td><td style="padding:7px 0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;color:#111">' + esc_(r[1]) + '</td></tr>'; }).join('');
+  var body = '' +
+    '<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse">' + rows + '</table>' +
+    '<h3 style="margin:26px 0 6px;font-family:Courier,monospace;font-weight:normal;font-size:11px;letter-spacing:.2em;color:#a8863f">CURRENT STATE</h3><p style="margin:0">' + nl_(d.currentState) + '</p>' +
+    '<h3 style="margin:22px 0 6px;font-family:Courier,monospace;font-weight:normal;font-size:11px;letter-spacing:.2em;color:#a8863f">FUTURE GOALS</h3><p style="margin:0">' + nl_(d.futureGoals) + '</p>' +
+    '<p style="margin:26px 0 0;font-size:12px;color:#6e747d;border-top:1px solid #e6e2d8;padding-top:14px">Logged to the Inquiries sheet, row ' + row + ', ' + Utilities.formatDate(when, Session.getScriptTimeZone(), 'EEE, MMM d yyyy h:mm a z') + '. Reply to this email to answer ' + esc_(d.name.split(' ')[0]) + ' directly.</p>';
 
   MailApp.sendEmail({
     to: CONFIG.INBOX,
@@ -167,20 +217,32 @@ function notifyInbox_(d, when, row) {
     name: CONFIG.FROM_NAME + ' Intake',
     subject: 'New brief: ' + d.company + ' — ' + d.name,
     body: briefText_(d, when, row),
-    htmlBody: html
+    htmlBody: shell_('New brief · ' + d.timing, d.company, body)
   });
 }
 
 function confirmProspect_(d) {
   var first = d.name.split(' ')[0];
+  var text = first + ',\n\nThank you. Your brief for ' + d.company + ' is in front of a principal at Elite Management LLC. ' +
+    'You will hear from us within two business days with clarifying questions and a proposed scope.\n\n' +
+    'If anything changes in the meantime, reply to this email.\n\n— Elite Management LLC\n' + CONFIG.INBOX + '\nelitemgmt.io\n\n' +
+    'CONFIDENTIAL. This message is the proprietary and confidential information of Elite Management LLC, intended solely for the addressee. Nothing herein constitutes legal, tax, accounting, or investment advice, and no engagement exists absent a signed engagement letter.';
+  var body = '' +
+    '<p style="margin:0 0 16px">' + esc_(first) + ',</p>' +
+    '<p style="margin:0 0 16px">Thank you. Your brief for <b>' + esc_(d.company) + '</b> is in front of a principal at Elite Management LLC. You will hear from us within two business days with clarifying questions and a proposed scope.</p>' +
+    '<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;margin:6px 0 20px">' +
+      '<tr><td style="padding:6px 14px 6px 0;font-family:Courier,monospace;font-size:11px;letter-spacing:.14em;color:#a8863f;vertical-align:top">01</td><td style="padding:6px 0;font-size:14px;color:#222">We reply with three clarifying questions and a proposed scope.</td></tr>' +
+      '<tr><td style="padding:6px 14px 6px 0;font-family:Courier,monospace;font-size:11px;letter-spacing:.14em;color:#a8863f;vertical-align:top">02</td><td style="padding:6px 0;font-size:14px;color:#222">A 45-minute working session, no charge, to confirm fit.</td></tr>' +
+      '<tr><td style="padding:6px 14px 6px 0;font-family:Courier,monospace;font-size:11px;letter-spacing:.14em;color:#a8863f;vertical-align:top">03</td><td style="padding:6px 0;font-size:14px;color:#222">A written engagement letter. You decide.</td></tr>' +
+    '</table>' +
+    '<p style="margin:0">If anything changes in the meantime, reply to this email.</p>';
   MailApp.sendEmail({
     to: d.email,
     replyTo: CONFIG.INBOX,
-    name: CONFIG.FROM_NAME,
-    subject: 'We received your brief — Elite Management',
-    body: first + ',\n\nThank you. Your brief for ' + d.company + ' is in front of a principal at Elite Management. ' +
-      'You will hear from us within two business days with clarifying questions and a proposed scope.\n\n' +
-      'If anything changes in the meantime, reply to this email.\n\n— Elite Management\n' + CONFIG.INBOX + '\nelitemgmt.io'
+    name: CONFIG.FROM_NAME + ' LLC',
+    subject: 'We received your brief — Elite Management LLC',
+    body: text,
+    htmlBody: shell_('Brief received', 'Thank you, ' + first + '.', body)
   });
 }
 

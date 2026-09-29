@@ -1,0 +1,112 @@
+<!doctype html>
+<!--
+  ELITE MANAGEMENT LLC — PROPRIETARY AND CONFIDENTIAL
+  Copyright (c) 2026 Elite Management LLC. All rights reserved. Do not disseminate.
+  Email signature source. To install in Gmail: open this page, click "Copy signature",
+  then Gmail → Settings → See all settings → Signature → paste.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Elite Management LLC — Email Signature</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  body{margin:0;background:#07090d;color:#ecebe6;font-family:Figtree,Helvetica,Arial,sans-serif;padding:48px 16px;line-height:1.5}
+  .wrap{max-width:720px;margin:0 auto;display:grid;gap:28px}
+  h1{font-family:"Bodoni Moda",Didot,serif;font-weight:400;font-size:34px;margin:0}
+  p.l{color:#a8adb5;font-weight:300;font-size:15px;max-width:60ch}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#d2b06c}
+  .card{background:#0d1118;border:1px solid rgba(214,190,140,.16);border-radius:4px;padding:28px}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  button{font:600 13px/1 Figtree,Helvetica,Arial,sans-serif;letter-spacing:.04em;padding:13px 20px;border-radius:2px;border:1px solid #d2b06c;background:#d2b06c;color:#07090d;cursor:pointer}
+  button.ghost{background:transparent;color:#ecebe6;border-color:rgba(214,190,140,.32)}
+  .field{display:grid;gap:6px}
+  label{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6e747d}
+  input{background:#07090d;border:1px solid rgba(214,190,140,.16);border-radius:3px;color:#ecebe6;font:15px Figtree,Helvetica,Arial,sans-serif;padding:11px 12px}
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:600px){.fields{grid-template-columns:1fr}}
+  ol{color:#a8adb5;font-size:14px;padding-left:18px;display:grid;gap:6px;margin:0}
+  .preview{background:#ffffff;padding:28px;border-radius:4px}
+  .note{font-size:12px;color:#6e747d}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div>
+    <p class="eyebrow">Elite Management LLC · internal</p>
+    <h1>Email signature</h1>
+    <p class="l">Built to match elitemgmt.io. Fill in the name and title, click Copy, and paste into Gmail's signature editor. It renders on both light and dark email clients.</p>
+  </div>
+
+  <div class="card">
+    <div class="fields">
+      <div class="field"><label for="n">Name</label><input id="n" value="William"></div>
+      <div class="field"><label for="t">Title</label><input id="t" value="Principal"></div>
+      <div class="field"><label for="e">Email</label><input id="e" value="value@elitemgmt.io"></div>
+      <div class="field"><label for="p">Phone (optional)</label><input id="p" value="" placeholder="(949) 000-0000"></div>
+    </div>
+  </div>
+
+  <div class="preview" id="preview"></div>
+
+  <div class="row">
+    <button id="copy">Copy signature</button>
+    <button class="ghost" id="copyHtml">Copy raw HTML</button>
+    <span class="note" id="msg"></span>
+  </div>
+
+  <div class="card">
+    <p class="eyebrow" style="margin:0 0 12px">Install in Gmail</p>
+    <ol>
+      <li>Click <b>Copy signature</b> above.</li>
+      <li>Gmail → gear → <b>See all settings</b> → General → <b>Signature</b> → <b>Create new</b>, name it "Elite Management".</li>
+      <li>Click into the editor and paste (Cmd+V). The seal image loads from elitemgmt.io.</li>
+      <li>Under <b>Signature defaults</b>, choose it for new emails and replies on the <b>value@elitemgmt.io</b> send-as address. Save.</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+function sig(d){
+  var phone=d.phone? '<span style="color:#6e747d">&nbsp;&nbsp;·&nbsp;&nbsp;</span><a href="tel:'+d.phone.replace(/[^\\d+]/g,'')+'" style="color:#a8adb5;text-decoration:none">'+d.phone+'</a>' : '';
+  return ''+
+  '<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;font-family:Helvetica,Arial,sans-serif;max-width:560px">'+
+  '<tr><td style="padding:0">'+
+    '<table cellpadding="0" cellspacing="0" border="0" role="presentation" bgcolor="#0d1118" style="border-collapse:separate;background:#0d1118;border:1px solid #2a2f3a;border-radius:4px;width:100%;max-width:560px">'+
+    '<tr>'+
+      '<td width="150" valign="middle" style="padding:22px 6px 22px 22px;width:150px"><a href="https://elitemgmt.io" style="text-decoration:none"><img src="https://elitemgmt.io/assets/seal-140.png" width="128" height="84" alt="Elite Management LLC seal" style="display:block;width:128px;height:auto;border:0;outline:none"></a></td>'+
+      '<td width="1" style="width:1px;padding:0;background:#3b3527;line-height:1px;font-size:1px">&nbsp;</td>'+
+      '<td valign="middle" style="padding:20px 22px 20px 22px">'+
+        '<div style="font-family:Georgia,\\'Times New Roman\\',serif;font-size:20px;line-height:1.15;color:#ecebe6;letter-spacing:.01em">'+esc(d.name)+'</div>'+
+        '<div style="font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.5;color:#d2b06c;letter-spacing:.14em;text-transform:uppercase;margin-top:4px">'+esc(d.title)+'</div>'+
+        '<div style="font-family:Georgia,\\'Times New Roman\\',serif;font-size:15px;line-height:1.3;color:#ecebe6;margin-top:12px">Elite Management <span style="font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.18em;color:#d2b06c;vertical-align:2px">LLC</span></div>'+
+        '<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#a8adb5;margin-top:8px"><a href="mailto:'+esc(d.email)+'" style="color:#a8adb5;text-decoration:none">'+esc(d.email)+'</a>'+phone+'</div>'+
+        '<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#a8adb5"><a href="https://elitemgmt.io" style="color:#f0d59a;text-decoration:none">elitemgmt.io</a><span style="color:#6e747d">&nbsp;&nbsp;·&nbsp;&nbsp;Orange County, California</span></div>'+
+      '</td>'+
+    '</tr>'+
+    '</table>'+
+  '</td></tr>'+
+  '<tr><td style="padding:10px 2px 0 2px;font-family:Helvetica,Arial,sans-serif;font-size:10px;line-height:1.5;color:#8a8f98;max-width:560px">'+
+    'CONFIDENTIAL. This message and any attachments are the proprietary and confidential information of Elite Management LLC, intended solely for the addressee. If you received it in error, please notify the sender and delete it; any review, use, or dissemination is prohibited. Nothing herein constitutes legal, tax, accounting, or investment advice, and no engagement exists absent a signed engagement letter.'+
+  '</td></tr>'+
+  '</table>';
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var ids=['n','t','e','p'], pv=document.getElementById('preview'), msg=document.getElementById('msg');
+function data(){return{name:v('n'),title:v('t'),email:v('e'),phone:v('p')}}
+function v(id){return document.getElementById(id).value.trim()}
+function render(){pv.innerHTML=sig(data());}
+ids.forEach(function(id){document.getElementById(id).addEventListener('input',render)}); render();
+document.getElementById('copy').addEventListener('click',async function(){
+  var html=sig(data());
+  try{
+    if(navigator.clipboard&&window.ClipboardItem){ await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([pv.innerText],{type:'text/plain'})})]); msg.textContent='Copied. Paste into Gmail → Settings → Signature.'; return; }
+  }catch(e){}
+  var r=document.createRange(); r.selectNodeContents(pv); var s=getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); s.removeAllRanges(); msg.textContent='Copied (fallback). Paste into Gmail → Settings → Signature.';
+});
+document.getElementById('copyHtml').addEventListener('click',async function(){ try{ await navigator.clipboard.writeText(sig(data())); msg.textContent='Raw HTML copied.'; }catch(e){ msg.textContent='Clipboard blocked; select the preview and copy manually.'; } });
+</script>
+</body>
+</html>

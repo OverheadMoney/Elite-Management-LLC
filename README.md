@@ -11,6 +11,8 @@ Static marketing site for Elite Management LLC. One HTML file, no build step, ho
 | `.nojekyll` | Disables Jekyll processing so files are served as-is. (Dotfiles are hidden in the macOS file picker: if you upload through the GitHub website, create this one with **Add file → Create new file**.) |
 | `robots.txt`, `sitemap.xml` | Search-engine basics. |
 | `apps-script/Code.gs`, `apps-script/appsscript.json` | The intake web app (deploy into your Google account, see §5). |
+| `assets/seal.png`, `assets/seal-140.png` | The 3D seal rendered to PNG; used by the emails and signature. |
+| `signature.html` | Email signature generator: open https://elitemgmt.io/signature.html, fill in name/title, Copy, paste into Gmail → Settings → Signature. |
 
 Three.js loads from cdnjs (`three.js r128`). Fonts load from Google Fonts. Nothing else is fetched.
 
