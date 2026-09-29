@@ -1,4 +1,20 @@
 /**
+ * ============================================================================
+ * ELITE MANAGEMENT LLC — PROPRIETARY AND CONFIDENTIAL
+ * ----------------------------------------------------------------------------
+ * Copyright (c) 2026 Elite Management LLC. All rights reserved.
+ *
+ * This script and the data it processes are the confidential and proprietary
+ * information of Elite Management LLC. Unauthorized copying, modification,
+ * distribution, or other dissemination, in whole or in part, is strictly
+ * prohibited without the prior written consent of Elite Management LLC.
+ * Client submissions handled by this script are confidential business
+ * records and must be handled in accordance with the Privacy Notice at
+ * https://elitemgmt.io. Questions: value@elitemgmt.io
+ * ============================================================================
+ */
+
+/**
  * Elite Management — intake web app
  * Receives briefs POSTed from elitemgmt.io, logs each to a Google Sheet,
  * emails the brief to the inbox, and sends the prospect a confirmation.

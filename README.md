@@ -141,4 +141,4 @@ python3 -m http.server 8080
 ```
 
 ---
-© 2026 Elite Management LLC. All rights reserved.
+**© 2026 Elite Management LLC. All rights reserved. Proprietary and confidential.** This repository and its contents may not be copied, distributed or disseminated without the prior written consent of Elite Management LLC. See `LICENSE`.

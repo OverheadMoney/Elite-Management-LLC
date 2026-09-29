@@ -1,4 +1,29 @@
 <!doctype html>
+<!--
+  ============================================================================
+  ELITE MANAGEMENT LLC — PROPRIETARY AND CONFIDENTIAL
+  ----------------------------------------------------------------------------
+  Copyright (c) 2026 Elite Management LLC. All rights reserved.
+
+  This file and its contents, including but not limited to source code, markup,
+  styles, scripts, design, copy, graphics, three-dimensional scenes, and the
+  intake workflow, are the confidential and proprietary information of Elite
+  Management LLC and are protected by United States and international
+  copyright, trademark, trade secret and other intellectual property laws.
+
+  Unauthorized copying, reproduction, modification, distribution, display,
+  transmission, reverse engineering, or other dissemination of this file, in
+  whole or in part, in any form or by any means, is strictly prohibited
+  without the prior written consent of Elite Management LLC.
+
+  The name "Elite Management" and the hexagonal mark are trademarks of Elite
+  Management LLC. Third-party components (three.js, Google Fonts) are used
+  under their respective licenses and remain the property of their owners.
+
+  Viewing this site in a browser does not grant any license to its source.
+  Questions or permission requests: value@elitemgmt.io
+  ============================================================================
+-->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -10,6 +35,9 @@
 <meta property="og:url" content="https://elitemgmt.io/">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#07090d">
+<meta name="copyright" content="Copyright (c) 2026 Elite Management LLC. All rights reserved. Proprietary and confidential; do not disseminate.">
+<meta name="author" content="Elite Management LLC">
+<meta name="robots" content="index, follow, noarchive">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none'%3E%3Crect width='40' height='40' fill='%2307090d'/%3E%3Cpath d='M20 3 36 12v16L20 37 4 28V12z' stroke='%23d2b06c' stroke-width='1.6'/%3E%3Ccircle cx='20' cy='20' r='3.4' fill='%23f0d59a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -490,7 +518,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
       </div>
     </div>
     <div class="bottom">
-      <span>© 2026 Elite Management LLC. All rights reserved.</span>
+      <span>© 2026 Elite Management LLC. All rights reserved. Proprietary &amp; confidential.</span>
       <span>elitemgmt.io</span>
       <a href="#top">Back to top ↑</a>
     </div>
@@ -532,7 +560,9 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     <h4>Illustrations</h4>
     <p>Interactive models and figures on this site, including "The Ascent," illustrate how we approach engagements. They are not projections, forecasts or guarantees of results for any business.</p>
     <h4>Intellectual property</h4>
-    <p>The site, its text, graphics and code are owned by Elite Management LLC or its licensors and are protected by applicable law. You may view the site for your own use; you may not copy, reproduce or redistribute it without written permission.</p>
+    <p>The site, its text, graphics, three-dimensional scenes, source code and design are the proprietary and confidential property of Elite Management LLC or its licensors and are protected by copyright, trademark and trade secret law. "Elite Management" and the hexagonal mark are trademarks of Elite Management LLC. You may view the site for your own informational use. You may not copy, reproduce, modify, distribute, display, scrape, reverse engineer or otherwise disseminate any part of it, in any form, without the prior written consent of Elite Management LLC.</p>
+    <h4>Confidentiality of submissions</h4>
+    <p>Information you submit through the intake brief is treated as confidential business information of the submitter and is used only as described in the Privacy Notice. Correspondence, proposals and engagement materials we provide to you are confidential and proprietary to Elite Management LLC and may not be shared with third parties without our written consent.</p>
     <h4>Disclaimer and limitation</h4>
     <p>The site is provided "as is" without warranties of any kind. To the fullest extent permitted by law, Elite Management LLC is not liable for any loss arising from use of, or reliance on, this site.</p>
     <h4>Governing law</h4>
@@ -546,6 +576,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
+  try{ console.log('%cElite Management LLC','font:600 18px serif;color:#d2b06c'); console.log('%cThis site, its source and its design are proprietary and confidential. © 2026 Elite Management LLC. All rights reserved. Do not copy or disseminate. Inquiries: value@elitemgmt.io','color:#a8adb5'); }catch(_){}
   document.documentElement.classList.add('js');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hasThree = typeof THREE !== 'undefined';
