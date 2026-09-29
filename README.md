@@ -8,8 +8,9 @@ Static marketing site for Elite Management LLC. One HTML file, no build step, ho
 |---|---|
 | `index.html` | The entire site (markup, styles, Three.js scenes, intake form). |
 | `CNAME` | Tells GitHub Pages to serve at `elitemgmt.io`. Do not delete. |
-| `.nojekyll` | Disables Jekyll processing so files are served as-is. |
+| `.nojekyll` | Disables Jekyll processing so files are served as-is. (Dotfiles are hidden in the macOS file picker: if you upload through the GitHub website, create this one with **Add file → Create new file**.) |
 | `robots.txt`, `sitemap.xml` | Search-engine basics. |
+| `apps-script/Code.gs`, `apps-script/appsscript.json` | The intake web app (deploy into your Google account, see §5). |
 
 Three.js loads from cdnjs (`three.js r128`). Fonts load from Google Fonts. Nothing else is fetched.
 
@@ -97,20 +98,29 @@ Gmail emails a confirmation code to `value@elitemgmt.io`; it arrives in your inb
 
 > Heads-up: ImprovMX's own guide notes that Google is retiring Gmail's "Send mail as" in January 2027. The receive side is unaffected. Before then, plan to move sending to Google Workspace on the domain or another sender.
 
-## 5. Intake form → your inbox
+## 5. Intake form → Google Sheet + your inbox (Apps Script web app)
 
-GitHub Pages is static, so the form posts to Web3Forms, which emails each brief to `value@elitemgmt.io` (free tier, no server needed).
+GitHub Pages is static, so the form posts to a small Google Apps Script web app that lives in your own Google account. Code is in `apps-script/`. Each brief is appended to a Google Sheet, emailed to `value@elitemgmt.io` with reply-to set to the prospect, and the prospect gets a confirmation.
 
-1. Go to https://web3forms.com, enter `value@elitemgmt.io`, confirm the email it sends (it arrives through ImprovMX), and copy the **access key**.
-2. In `index.html`, find:
+**Deploy (about 5 minutes):**
+
+1. In Google Drive (the account that will own the log), create a new **Google Sheet** named `Elite Management — Inquiries`.
+2. In that sheet: **Extensions → Apps Script**. Delete the default code, paste in `apps-script/Code.gs`. Optionally **Project Settings → Show "appsscript.json"** and paste `apps-script/appsscript.json` over it.
+3. In `Code.gs`, set `CONFIG.FORM_TOKEN` to a long random string (e.g. run `openssl rand -hex 24` in Terminal). Save.
+4. Select the `selfTest` function → **Run**. Approve the Sheets + Mail permissions when asked. Check: a row appears in the `Inquiries` tab, and two emails arrive (the brief to value@ and a confirmation to you).
+5. **Deploy → New deployment → Type: Web app** → Description "intake v1" → Execute as **Me** → Who has access **Anyone** → Deploy. Copy the **Web app URL** (ends in `/exec`). Open it in a browser: you should see `{"ok":true,"service":"elitemgmt-intake",...}`.
+6. In `index.html`, set:
    ```js
-   const FORM_ACCESS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE';
+   const INTAKE_URL   = 'https://script.google.com/macros/s/…/exec';
+   const INTAKE_TOKEN = 'the same string as CONFIG.FORM_TOKEN';
    ```
-   and paste the key. Commit and push.
+   Commit and push. Submit a test brief on the live site.
 
-Until the key is set, the form still works: it formats the brief and shows a **Copy brief** button with instructions to email `value@elitemgmt.io`.
+**Later edits to Code.gs:** Deploy → **Manage deployments** → pencil → Version **New** → Deploy. The `/exec` URL stays the same.
 
-Each submission emails: name, title, company, industry, email, phone (optional), revenue and team ranges (optional), current state, future goals, areas of interest, and timing. A hidden honeypot field drops bots.
+**How the request works:** the page sends the JSON body as `text/plain`, which keeps the request "simple" (no CORS preflight, which Apps Script can't answer), and Apps Script replies with JSON. The token is a light shared secret to keep random bots off the endpoint; a hidden honeypot field catches form-fillers. Until `INTAKE_URL` is set, the form falls back to a **Copy brief** button with instructions to email `value@elitemgmt.io`.
+
+**Sending identity:** confirmations go out from the Google account that deployed the script, with reply-to `value@elitemgmt.io`. The Gmail send-as alias above does not apply to `MailApp`. If you want confirmations to come *from* value@elitemgmt.io, that needs Google Workspace on the domain.
 
 ## 6. Editing the site
 

@@ -382,7 +382,7 @@ footer a{text-decoration:none;color:var(--fg-2)}
   const hasThree = typeof THREE !== 'undefined';
 
   /* ---------- HERO LATTICE (Three.js) ---------- */
-  if (hasThree) {
+  if (hasThree) try {
     const canvas = document.getElementById('lattice');
     const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -463,7 +463,7 @@ footer a{text-decoration:none;color:var(--fg-2)}
       renderer.render(scene, camera);
     }
     frame();
-  }
+  } catch(err){ console.warn('Hero 3D unavailable', err); }
 
   /* ---------- TILT CARDS ---------- */
   document.querySelectorAll('.card').forEach(card=>{
@@ -482,7 +482,7 @@ footer a{text-decoration:none;color:var(--fg-2)}
   const stages=[...document.querySelectorAll('.stage')];
   const lerp=(a,b,k)=>a+(b-a)*k, ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
   let ascentStep=()=>{};
-  if (hasThree) {
+  if (hasThree) try {
     const canvas=document.getElementById('ascent');
     const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
     const scene=new THREE.Scene(); const camera=new THREE.PerspectiveCamera(38,1,.1,100); camera.position.set(6.5,5.2,8.5); camera.lookAt(0,1.4,0);
@@ -509,7 +509,7 @@ footer a{text-decoration:none;color:var(--fg-2)}
       renderer.render(scene,camera);
     }
     frame();
-  }
+  } catch(err){ console.warn('Ascent 3D unavailable', err); }
   function updateAscent(){
     const v=+slider.value, k=v/36, e=ease(k);
     out.textContent = v===0?'Month 0':`Month ${v}`;
@@ -523,10 +523,12 @@ footer a{text-decoration:none;color:var(--fg-2)}
   if(!reduce){ let auto=0; const iv=setInterval(()=>{ if(document.activeElement===slider) {clearInterval(iv);return;} auto=Math.min(36,auto+1); slider.value=auto; updateAscent(); if(auto>=36) clearInterval(iv); }, 140); slider.addEventListener('pointerdown',()=>clearInterval(iv),{once:true}); }
 
   /* ---------- INTAKE FORM ----------
-     Submissions are emailed to value@elitemgmt.io through Web3Forms (https://web3forms.com).
-     1. Create a free access key for value@elitemgmt.io at web3forms.com
-     2. Paste it below. Until then the form falls back to a copy-and-email flow. */
-  const FORM_ACCESS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE';
+     Briefs POST to the Google Apps Script web app in /apps-script (logs to a Sheet, emails value@elitemgmt.io).
+     1. Deploy Code.gs as a Web app (Execute as: Me · Access: Anyone) and paste its /exec URL below.
+     2. Set INTAKE_TOKEN to the same value as CONFIG.FORM_TOKEN in Code.gs.
+     Until INTAKE_URL is set, the form falls back to a copy-and-email flow. */
+  const INTAKE_URL   = 'https://script.google.com/macros/s/AKfycbycSdAxFt9OQy8v2FoZ4YS5k_k3_yBv2gtQnBmZ9bErLaZibhmZdYNPZ_lR3DZYGZnj0Q/exec';
+  const INTAKE_TOKEN = '9eeba2924ae448c7864cb597cde7a286550524027570ba2c';
   const form=document.getElementById('brief'), status=document.getElementById('status'), btn=document.getElementById('submitBtn');
   document.getElementById('areas').addEventListener('click',e=>{ const b=e.target.closest('.pill'); if(!b) return; b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')!=='true'); });
   const fields={name:'fname',company:'fcompany',email:'femail',current:'fcurrent',goals:'fgoals'};
@@ -548,10 +550,11 @@ footer a{text-decoration:none;color:var(--fg-2)}
     const data=collect(); btn.disabled=true; btn.textContent='Submitting…';
     let saved=false, reason='';
     try{
-      if(FORM_ACCESS_KEY && !FORM_ACCESS_KEY.startsWith('PASTE')){
-        const res=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-          body:JSON.stringify({access_key:FORM_ACCESS_KEY, subject:`New brief from ${data.name} — ${data.company}`, from_name:'elitemgmt.io intake', ...data, areas:data.areas.join(', ')})});
-        const j=await res.json(); if(res.ok && j.success) saved=true; else reason=j.message||'rejected';
+      if(INTAKE_URL.startsWith('https://')){
+        // text/plain body keeps this a "simple" request: no CORS preflight, and Apps Script answers with JSON.
+        const res=await fetch(INTAKE_URL,{method:'POST',body:JSON.stringify({...data, token:INTAKE_TOKEN, website:document.getElementById('fweb').value})});
+        let j=null; try{ j=await res.json(); }catch(_){}
+        if(j && j.ok) saved=true; else reason=(j&&j.error)||('http_'+res.status);
       } else reason='no-endpoint';
     } catch(err){ reason='network'; }
     btn.disabled=false; btn.textContent='Submit the brief →';
