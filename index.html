@@ -147,6 +147,14 @@ section.block{padding-block:clamp(72px,10vw,128px)}
 @media(max-width:900px){.ascent .grid{grid-template-columns:1fr}}
 .scene{position:relative;border:1px solid var(--line);border-radius:4px;background:radial-gradient(80% 80% at 50% 100%,rgba(111,143,168,.08),transparent),var(--bg);overflow:hidden}
 .scene canvas{width:100%;height:100%}
+#stage{position:fixed;inset:0;width:100vw;height:100vh;z-index:3;pointer-events:none}
+.scene .tag{z-index:4}
+.scene .fb{position:absolute;inset:0;display:none;place-items:center;background:radial-gradient(60% 60% at 50% 55%,rgba(210,176,108,.10),transparent 70%)}
+.scene .fb svg{width:36%;max-width:180px;opacity:.85;animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+body.gl-lost #stage,body.gl-lost #lattice{visibility:hidden}
+body.gl-lost .scene .fb{display:grid}
+body.gl-lost .hint{display:none}
 .scene .tag{position:absolute;left:16px;top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3);pointer-events:none}
 .scene .tag b{color:var(--brass);font-weight:500}
 #ascentScene{aspect-ratio:1.15}
@@ -304,6 +312,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
   <a href="#intake">Begin <small>04</small></a>
 </div>
 
+<canvas id="stage" aria-hidden="true"></canvas>
 <header class="hero" id="top">
   <canvas id="lattice" aria-hidden="true"></canvas>
   <div class="hint"><i></i> Drag the structure</div>
@@ -366,9 +375,9 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
 <section class="block ascent" id="ascent">
   <div class="wrap">
     <div class="grid">
-      <div class="scene rv" id="ascentScene">
+      <div class="scene rv" id="ascentScene" role="img" aria-label="Interactive model of a business climbing from its current state to its future goal">
         <span class="tag"><b>Model</b> · drag to orbit</span>
-        <canvas id="ascentCanvas" aria-label="Interactive model of a business climbing from its current state to its future goal"></canvas>
+        <div class="fb" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.2"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".6" opacity=".55"/><circle cx="20" cy="20" r="3" fill="#f0d59a"/></svg></div>
       </div>
       <div class="panel rv">
         <p class="eyebrow">The Ascent</p>
@@ -404,7 +413,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     <div class="grid">
       <div class="scene rv" id="monolithScene">
         <span class="tag"><b>Monolith</b> · four tenets</span>
-        <canvas id="monolithCanvas" aria-hidden="true"></canvas>
+        <div class="fb" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.2"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".6" opacity=".55"/><circle cx="20" cy="20" r="3" fill="#f0d59a"/></svg></div>
       </div>
       <div class="plist rv" id="plist">
         <div class="pitem on" data-i="0" tabindex="0"><span class="k">I</span><div><h3>Numbers before narrative.</h3><p>No recommendation is made until the cost of the current state is measured. Opinion is cheap; a reconciled ledger is not.</p></div></div>
@@ -435,7 +444,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
         </div>
         <div class="scene" id="sealScene" aria-hidden="true">
           <span class="tag"><b>Seal</b> · Elite Management LLC</span>
-          <canvas id="sealCanvas"></canvas>
+          <div class="fb" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 3 36 12v16L20 37 4 28V12z" stroke="#d2b06c" stroke-width="1.2"/><path d="M20 3v34M4 12l32 16M36 12 4 28" stroke="#d2b06c" stroke-width=".6" opacity=".55"/><circle cx="20" cy="20" r="3" fill="#f0d59a"/></svg></div>
         </div>
       </aside>
 
@@ -582,27 +591,50 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
   const hasThree = typeof THREE !== 'undefined';
   const BRASS='#d2b06c', PALE='#f0d59a', SLATE='#6f8fa8';
 
-  /* ---------- shared: renderer factory that pauses off-screen ---------- */
-  function makeScene(canvas, opts){
-    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-    const scene=new THREE.Scene();
-    const camera=new THREE.PerspectiveCamera(opts.fov||40,1,.1,100);
-    let visible=false;
-    new IntersectionObserver(en=>visible=en[0].isIntersecting,{rootMargin:'80px'}).observe(canvas);
-    function fit(){ const w=canvas.clientWidth||1,h=canvas.clientHeight||1; if(canvas.width!==Math.round(w*renderer.getPixelRatio())||canvas.height!==Math.round(h*renderer.getPixelRatio())){ renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); return true;} return false; }
-    let t=0;
-    function loop(){ requestAnimationFrame(loop); if(!visible) return; fit(); t+=reduce?0:.01; opts.tick(t); renderer.render(scene,camera); }
-    return {renderer,scene,camera,start:()=>requestAnimationFrame(loop),fit};
+  /* ---------- WebGL budget: exactly two contexts (hero + shared stage). Loss → designed fallback. ---------- */
+  const DPR=Math.min(devicePixelRatio,1.5);
+  function glGuard(canvas){
+    canvas.addEventListener('webglcontextlost',e=>{ e.preventDefault(); document.body.classList.add('gl-lost'); },false);
+    canvas.addEventListener('webglcontextrestored',()=>{ document.body.classList.remove('gl-lost'); },false);
   }
-  function dragger(canvas, onDelta){
+  function makeScene(canvas, opts){
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'default'});
+    if(!renderer.getContext()) throw new Error('no context');
+    glGuard(canvas); renderer.setPixelRatio(DPR);
+    const scene=new THREE.Scene(); const camera=new THREE.PerspectiveCamera(opts.fov||40,1,.1,100);
+    let visible=false; new IntersectionObserver(en=>visible=en[0].isIntersecting,{rootMargin:'80px'}).observe(canvas);
+    function fit(){ const w=canvas.clientWidth||1,h=canvas.clientHeight||1; if(canvas.width!==Math.round(w*DPR)||canvas.height!==Math.round(h*DPR)){ renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); } }
+    let t=0; function loop(){ requestAnimationFrame(loop); if(!visible||document.body.classList.contains('gl-lost')) return; fit(); t+=reduce?0:.01; opts.tick(t); renderer.render(scene,camera); }
+    return {renderer,scene,camera,start:()=>requestAnimationFrame(loop)};
+  }
+  // One fixed canvas renders every boxed scene with scissoring; boxes stay interactive underneath.
+  const stage=(function(){
+    const canvas=document.getElementById('stage'); let renderer=null; const items=[]; let t=0;
+    function init(){ if(renderer) return true; try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'default'}); if(!renderer.getContext()) throw 0; glGuard(canvas); renderer.setPixelRatio(DPR); renderer.autoClear=false; renderer.setScissorTest(true); return true; }catch(e){ document.body.classList.add('gl-lost'); return false; } }
+    function loop(){
+      requestAnimationFrame(loop);
+      if(document.body.classList.contains('gl-lost')||!renderer) return;
+      const W=innerWidth,H=innerHeight; if(canvas.width!==Math.round(W*DPR)||canvas.height!==Math.round(H*DPR)) renderer.setSize(W,H,false);
+      renderer.setScissorTest(false); renderer.clear(); renderer.setScissorTest(true);
+      t+=reduce?0:.01;
+      for(const it of items){
+        const r=it.el.getBoundingClientRect(); if(r.bottom<-80||r.top>H+80||r.width<2||r.height<2) continue;
+        const w=Math.round(r.width),h=Math.round(r.height),x=Math.round(r.left),y=Math.round(H-r.bottom);
+        if(it.camera.aspect!==w/h){ it.camera.aspect=w/h; it.camera.updateProjectionMatrix(); }
+        renderer.setViewport(x,y,w,h); renderer.setScissor(x,y,w,h);
+        it.tick(t); renderer.render(it.scene,it.camera);
+      }
+    }
+    let started=false;
+    return { add(el,fov,build){ if(!init()) return; const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(fov,1,.1,100); const tick=build(scene,camera); items.push({el,scene,camera,tick}); if(!started){started=true;requestAnimationFrame(loop);} } };
+  })();
+  function dragger(el, onDelta){
     let down=false,lx=0,ly=0;
-    const p=e=>e.touches?e.touches[0]:e;
-    canvas.addEventListener('pointerdown',e=>{down=true;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';});
-    canvas.addEventListener('pointermove',e=>{ if(!down) return; onDelta((e.clientX-lx),(e.clientY-ly)); lx=e.clientX; ly=e.clientY; });
-    const up=()=>{down=false;canvas.style.cursor='grab';};
-    canvas.addEventListener('pointerup',up); canvas.addEventListener('pointercancel',up);
-    canvas.style.cursor='grab'; canvas.style.touchAction='pan-y';
+    el.addEventListener('pointerdown',e=>{down=true;lx=e.clientX;ly=e.clientY;el.setPointerCapture(e.pointerId);el.style.cursor='grabbing';});
+    el.addEventListener('pointermove',e=>{ if(!down) return; onDelta((e.clientX-lx),(e.clientY-ly)); lx=e.clientX; ly=e.clientY; });
+    const up=()=>{down=false;el.style.cursor='grab';};
+    el.addEventListener('pointerup',up); el.addEventListener('pointercancel',up);
+    el.style.cursor='grab'; el.style.touchAction='pan-y';
   }
   let mouseX=0, mouseY=0;
   addEventListener('pointermove',e=>{ mouseX=(e.clientX/innerWidth)*2-1; mouseY=(e.clientY/innerHeight)*2-1; },{passive:true});
@@ -647,7 +679,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
       dust.rotation.y=t*.05;
     }
     S.start();
-  } catch(err){ console.warn('Hero 3D unavailable',err); }
+  } catch(err){ console.warn('Hero 3D unavailable',err); document.body.classList.add('gl-lost'); }
 
   /* ---------- TILT CARDS ---------- */
   document.querySelectorAll('.card').forEach(card=>{
@@ -666,9 +698,8 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
   const lerp=(a,b,k)=>a+(b-a)*k, ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
   let ascentStep=()=>{};
   if(hasThree) try {
-    const canvas=document.getElementById('ascentCanvas');
-    const S=makeScene(canvas,{fov:38,tick});
-    const cam=S.camera; let orbit=0, orbitV=0, camK=0;
+    const box=document.getElementById('ascentScene');
+    stage.add(box,38,(sceneObj,cam)=>{ const S={scene:sceneObj,camera:cam}; let orbit=0, orbitV=0;
     S.scene.add(new THREE.AmbientLight('#fff',.4));
     const l=new THREE.PointLight(PALE,1.8,40); l.position.set(4,8,4); S.scene.add(l);
     const l2=new THREE.PointLight(SLATE,1,40); l2.position.set(-6,2,-4); S.scene.add(l2);
@@ -682,8 +713,8 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     const trail=new THREE.Line(trailGeo,new THREE.LineBasicMaterial({color:PALE,transparent:true,opacity:.5})); S.scene.add(trail);
     let cur=0,target=0;
     ascentStep=v=>{target=v};
-    dragger(canvas,(dx)=>{orbitV=dx*.004;});
-    function tick(t){
+    dragger(box,(dx)=>{orbitV=dx*.004;});
+    return function tick(t){
       cur+=(target-cur)*(reduce?1:.08); const k=cur/36;
       orbit+=orbitV; orbitV*=.92; orbit+= reduce?0:.0012;
       const narrow=Math.max(0,1.15-cam.aspect); const radius=11.5+narrow*7, ang=.62+orbit;
@@ -694,8 +725,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
       const cm=steps[Math.max(0,Math.min(N-1,Math.round(k*(N-1))))];
       marker.position.set(cm.position.x,cm.scale.y+.5+Math.sin(t*3)*.06,0); marker.rotation.y=t*1.2;
       goal.material.opacity=.4+Math.sin(t*2)*.3; goal.rotation.z=t*.5;
-    }
-    S.start();
+    }; });
   } catch(err){ console.warn('Ascent 3D unavailable',err); }
   function updateAscent(){
     const v=+slider.value,k=v/36,e=ease(k);
@@ -713,8 +743,8 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
   const pitems=[...document.querySelectorAll('.pitem')];
   let setPrinciple=()=>{};
   if(hasThree) try {
-    const canvas=document.getElementById('monolithCanvas');
-    const S=makeScene(canvas,{fov:34,tick});
+    const box=document.getElementById('monolithScene');
+    stage.add(box,34,(sceneObj,cam)=>{ const S={scene:sceneObj,camera:cam};
     S.camera.position.set(0,1.2,9);
     S.scene.add(new THREE.AmbientLight('#fff',.3));
     const l=new THREE.PointLight(PALE,2,30); l.position.set(3,5,4); S.scene.add(l);
@@ -739,14 +769,13 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     const halo=new THREE.Mesh(new THREE.TorusGeometry(2.9,.008,6,160),new THREE.MeshBasicMaterial({color:BRASS,transparent:true,opacity:.45})); halo.rotation.x=Math.PI/2; halo.position.y=base.position.y+.02; group.add(halo);
     let active=0, ry=0, ryV=0;
     setPrinciple=i=>{active=i};
-    dragger(canvas,(dx)=>{ryV=dx*.005;});
-    function tick(t){
+    dragger(box,(dx)=>{ryV=dx*.005;});
+    return function tick(t){
       ry+=ryV; ryV*=.9; ry+=reduce?0:.004;
       group.rotation.y=ry+mouseX*.1; group.rotation.x=mouseY*.06;
       slabs.forEach((m,i)=>{const on=i===active; m.position.x+=((on?.55:0)-m.position.x)*.12; m.material.emissiveIntensity+=((on?.35:0)-m.material.emissiveIntensity)*.12; m.children[0].material.opacity=on?.9:.3;});
       halo.rotation.z=t*.3;
-    }
-    S.start();
+    }; });
   } catch(err){ console.warn('Monolith 3D unavailable',err); }
   function activate(i){ pitems.forEach(p=>p.classList.toggle('on',+p.dataset.i===i)); setPrinciple(i); }
   pitems.forEach(p=>{ ['pointerenter','focus','click'].forEach(ev=>p.addEventListener(ev,()=>activate(+p.dataset.i))); });
@@ -754,8 +783,8 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
 
   /* ---------- SEAL (intake) ---------- */
   if(hasThree) try {
-    const canvas=document.getElementById('sealCanvas');
-    const S=makeScene(canvas,{fov:30,tick});
+    const box=document.getElementById('sealScene');
+    stage.add(box,30,(sceneObj,cam)=>{ const S={scene:sceneObj,camera:cam};
     S.camera.position.set(0,2.2,6.4); S.camera.lookAt(0,0,0);
     S.scene.add(new THREE.AmbientLight('#fff',.25));
     const l=new THREE.PointLight(PALE,2.4,30); l.position.set(3,4,4); S.scene.add(l);
@@ -780,16 +809,15 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
     const orbitPts=[]; for(let i=0;i<=120;i++){const a=i/120*Math.PI*2; orbitPts.push(new THREE.Vector3(Math.cos(a)*2.3,0,Math.sin(a)*2.3));}
     const orbit=new THREE.Line(new THREE.BufferGeometry().setFromPoints(orbitPts),new THREE.LineBasicMaterial({color:BRASS,transparent:true,opacity:.35})); orbit.rotation.x=.35; S.scene.add(orbit);
     const sat=new THREE.Mesh(new THREE.SphereGeometry(.06,10,10),new THREE.MeshBasicMaterial({color:PALE})); orbit.add(sat);
-    let ry=0,ryV=0; dragger(canvas,(dx)=>{ryV=dx*.006;});
-    function tick(t){
+    let ry=0,ryV=0; dragger(box,(dx)=>{ryV=dx*.006;});
+    return function tick(t){
       ry+=ryV; ryV*=.9; ry+=reduce?0:.006;
       seal.rotation.y=ry; seal.rotation.x=.12+mouseY*.12; seal.rotation.z=mouseX*.08;
       seal.position.y=Math.sin(t*1.2)*.08;
       gem.rotation.y=t*1.5; gem.rotation.x=t*.7;
       face.material.opacity=.8+Math.sin(t*2)*.15;
       sat.position.set(Math.cos(t*1.1)*2.3,0,Math.sin(t*1.1)*2.3); orbit.rotation.y=-t*.2;
-    }
-    S.start();
+    }; });
   } catch(err){ console.warn('Seal 3D unavailable',err); }
 
   /* ---------- CUSTOM SELECT ---------- */
