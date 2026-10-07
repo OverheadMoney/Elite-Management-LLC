@@ -4,7 +4,7 @@
    step 1: email -> we email a 6-digit code from value@elitemgmt.io
    step 2: enter the code -> confirmed -> the workbook opens (key returned by the server). */
 (function () {
-  var EP = 'http://127.0.0.1:8799/exec';
+  var EP = 'https://script.google.com/macros/s/AKfycbzLnqwJ0RCMK_ipdjYpeQOq-TG16Y0YSsXvq6RopfLcTbZWCfQlTv3rQTe1_644qyyY7g/exec';
   var KEY_STORE = 'elite-brief-key', EMAIL_STORE = 'elite-brief-email', NAME_STORE = 'elite-brief-first';
 
   var css = '' +
