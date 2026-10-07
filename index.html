@@ -304,7 +304,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
       <span><b>Elite Management<i>LLC</i></b><small>elitemgmt.io</small></span>
     </a>
     <div class="navlinks">
-      <a href="#practice">Practice</a><a href="#ascent">The Ascent</a><a href="#principles">Principles</a><a href="#intake">Begin</a>
+      <a href="#practice">Practice</a><a href="#ascent">The Ascent</a><a href="#principles">Principles</a><a href="/brief/">The Brief</a><a href="#intake">Begin</a>
     </div>
     <a class="btn ghost cta" href="#intake">Request a consultation</a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
@@ -314,7 +314,8 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
   <a href="#practice">Practice <small>01</small></a>
   <a href="#ascent">The Ascent <small>02</small></a>
   <a href="#principles">Principles <small>03</small></a>
-  <a href="#intake">Begin <small>04</small></a>
+  <a href="/brief/">The Brief <small>04</small></a>
+  <a href="#intake">Begin <small>05</small></a>
 </div>
 
 <canvas id="stage" aria-hidden="true"></canvas>
@@ -525,7 +526,7 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
       </div>
       <div>
         <h4>Site</h4>
-        <ul><li><a href="#practice">The practice</a></li><li><a href="#ascent">The Ascent</a></li><li><a href="#principles">Principles</a></li><li><a href="#intake">Submit a brief</a></li></ul>
+        <ul><li><a href="#practice">The practice</a></li><li><a href="#ascent">The Ascent</a></li><li><a href="#principles">Principles</a></li><li><a href="#intake">Submit a brief</a></li><li><a href="/brief/">The Operating Brief</a></li></ul>
       </div>
       <div>
         <h4>Legal</h4>
@@ -930,6 +931,8 @@ footer .bottom a{text-decoration:none;color:var(--fg-2)}
   function openModal(id){ const m=document.getElementById('modal-'+id); if(!m) return; lastFocus=document.activeElement; m.classList.add('open'); document.body.classList.add('locked'); m.querySelector('.x').focus(); }
   function closeModals(){ document.querySelectorAll('.modal.open').forEach(m=>m.classList.remove('open')); document.body.classList.remove('locked'); lastFocus&&lastFocus.focus&&lastFocus.focus(); }
   document.querySelectorAll('[data-modal]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openModal(el.dataset.modal);}));
+  function hashModal(){ const h=location.hash.slice(1); if(h==='privacy'||h==='terms') openModal(h); }
+  window.addEventListener('hashchange',hashModal); hashModal();
   document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeModals));
   document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) closeModals(); }));
   addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeModals(); if(burger.getAttribute('aria-expanded')==='true') setMenu(false); } });
